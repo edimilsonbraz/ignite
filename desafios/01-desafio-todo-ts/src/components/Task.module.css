@@ -1,0 +1,22 @@
+.contentTask {
+  width: 100%;
+  padding: 1rem;
+  background: var(--gray-500);
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.task {
+  display: flex;
+  gap: 1rem;
+}
+
+.contentTask + .contentTask {
+  margin-top: 0.75rem;
+}
+
+.contentTask input:checked {
+  background: var(--purple-500);
+}
