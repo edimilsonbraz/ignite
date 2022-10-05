@@ -6,9 +6,12 @@ export function Task() {
     <div className={styles.contentTask}>
       <div className={styles.task}>
         <input type="checkbox" name="" id="" />
+        <span className={styles.check}></span>
         <p>Integer urna interdum massa libero auctor neque turpis turpis semper.</p>
       </div>
-      <Trash size={20}/>
+      <button>
+        <Trash size={20}/>
+      </button>
     </div>
   );
 }

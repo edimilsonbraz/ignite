@@ -8,15 +8,93 @@
   justify-content: space-between;
 }
 
-.task {
+.contentTask .task {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.6rem;
+
+  position: relative;
+}
+
+/* INICIO config checkbox com pseudo elements */
+.contentTask .task input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+
+  width: 20px;
+  height: 20px;
+
+  z-index: 1;
+}
+
+.contentTask .task .check {
+  left: 0;
+  top: 4px;
+  width: 20px;
+  height: 20px;
+  background:transparent;
+  border: 2px solid var(--blue-300);
+  position: absolute;
+  border-radius: 50px;
+}
+
+.contentTask .task input:checked ~ .check {
+ background: var(--purple-500);
+}
+
+.contentTask .task .check::after {
+  top: 1px;
+  left: 6px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.check::after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.contentTask .task input:checked ~ .check:hover {
+  background: var(--purple-300);
+}
+/* FIM config checkbox com pseudo elements */
+
+.contentTask .task p {
+  margin-left: 3rem;
+}
+
+.contentTask .task input:checked ~ .check::after {
+  display: block;
+}
+
+.contentTask button {
+  color: var(--gray-300);
+  background: transparent;
+  border: none;
+  line-height: 24px;
+  font-size: 24px;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
+.contentTask button:hover {
+  color: var(--red-500);
+  background: var(--gray-400);
 }
 
 .contentTask + .contentTask {
   margin-top: 0.75rem;
 }
 
-.contentTask input:checked {
-  background: var(--purple-500);
-}
+
+
+
+
