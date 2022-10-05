@@ -35,6 +35,7 @@ const posts = [
     publishedAt: new Date('2022-09-30 10:32:00'),
   },
 ]
+
 export function App() {
   return (
     <div>

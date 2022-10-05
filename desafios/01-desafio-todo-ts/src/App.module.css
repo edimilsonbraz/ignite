@@ -9,6 +9,10 @@
   margin: -1.63rem auto 0;
 }
 
+main {
+  width: 100%;
+}
+
 .contentInput {
   display: flex;
 }
