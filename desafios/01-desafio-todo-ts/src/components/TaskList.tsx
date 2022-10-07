@@ -1,19 +1,30 @@
 import { PlusCircle } from 'phosphor-react'
-import { ChangeEvent, FormEvent, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { Task } from './Task'
+
+import clipboard from '../assets/clipboard.svg';
 import styles from './TaskList.module.css'
 
-
 export function TaskList() {
-  const [newTaskText, setNewTaskText] = useState('');
+  interface Props {
+    title: string;
+    isComplete: boolean;
+  }
 
-  const [tasks, setTasks] = useState(['']);
+  
+  const [newTaskText, setNewTaskText] = useState('');
+  const [tasks, setTasks] = useState<Props[]>([]);
+  const [countTasks, setCountTasks] = useState(0);
+  const [completedTasks, setCompletedTasks] = useState(0)
 
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
     
-    setTasks([...tasks, newTaskText]);
+    setTasks([{title: newTaskText, isComplete: false}, ...tasks]);
+
+    setCountTasks(tasks.length + 1)
     
     setNewTaskText('');
   }
@@ -23,24 +34,34 @@ export function TaskList() {
     //pega o valor digitado do input
     setNewTaskText(event.target.value)
   }
-
   
+  function checkTask(taskClicked: string) {
+    const filterTasks = tasks.filter(task => task.title !== taskClicked)
+    const changeTask = tasks.find(task => task.title === taskClicked)!
+    setTasks([...filterTasks, {title: changeTask.title, isComplete: !changeTask.isComplete}])
 
-  function checkTask(task: string) {
-
+    countCompleted(taskClicked);
+   
   }
 
-  function countCompletes(task: string) {
-    
+  function countCompleted(task: string) {
+    if(completedTasks < countTasks) {
+      setCompletedTasks(completedTasks + 1) 
+    }
   }
-
   function deleteTask(taskToDelete: string) {
     const tasksWithoutDeletedOne = tasks.filter(task => {
-      return task !== taskToDelete
-
+      return task.title !== taskToDelete
     })
 
     setTasks(tasksWithoutDeletedOne);
+
+    setCountTasks(tasks.length - 1)
+
+    if(completedTasks > 0) {
+
+      setCompletedTasks(completedTasks - 1)
+    }
   }
 
   return (
@@ -62,11 +83,11 @@ export function TaskList() {
       <div className={styles.counters}>
         <div className={styles.taskCreated}>
           <p>Tarefas criadas</p>
-          <span>{tasks.length}</span>
+          <span>{countTasks}</span>
         </div>
         <div className={styles.taskCompleted}>
           <p>Concluídas</p>
-          <span>2 de 5</span>
+          <span>{completedTasks} de {countTasks}</span>
         </div>
       </div>
 
@@ -76,20 +97,18 @@ export function TaskList() {
             return (
               <Task
                 key={uuidv4()}
-                title={task}
-                isComplete={false}
+                title={task.title}
+                isComplete={task.isComplete}
                 onCheckTask={checkTask}
-                onCountCompletes={countCompletes}
+                onCountCompleted={countCompleted}
                 onDeleteTask={deleteTask}
               />
             )
           })
         ) : (
           <div className={styles.homeScreen}>
-            <img src="clipboard.svg" alt="Clipboard icon" />
-            <strong className="mt-4">
-              Você ainda não tem tarefas cadastradas
-            </strong>
+            <img src={clipboard} alt="Clipboard icon" />
+            <p>Você ainda não tem tarefas cadastradas</p>
             <span>Crie tarefas e organize seus itens a fazer</span>
           </div>
         )
