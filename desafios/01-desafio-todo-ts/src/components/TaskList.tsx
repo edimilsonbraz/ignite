@@ -4,23 +4,6 @@ import { v4 as uuidv4 } from 'uuid'
 import { Task } from './Task'
 import styles from './TaskList.module.css'
 
-const tasks = [
-  {
-    id: uuidv4(),
-    title: 'Terminar o desafio',
-    isComplete: true
-  },
-  {
-    id: uuidv4(),
-    title: 'Estudar TypeScript',
-    isComplete: false
-  },
-  {
-    id: uuidv4(),
-    title: 'Estudar ReactJs',
-    isComplete: false
-  }
-]
 
 export function TaskList() {
   const [newTaskText, setNewTaskText] = useState('');
@@ -30,14 +13,8 @@ export function TaskList() {
   function handleCreateNewTask(event: FormEvent) {
     event.preventDefault();
     
-    // const newTask = {
-    //   id: uuidv4(),
-    //   title: newTaskText,
-    //   isComplete: false
-    // }
-    
     setTasks([...tasks, newTaskText]);
-
+    
     setNewTaskText('');
   }
 
@@ -45,6 +22,25 @@ export function TaskList() {
     
     //pega o valor digitado do input
     setNewTaskText(event.target.value)
+  }
+
+  
+
+  function checkTask(task: string) {
+
+  }
+
+  function countCompletes(task: string) {
+    
+  }
+
+  function deleteTask(taskToDelete: string) {
+    const tasksWithoutDeletedOne = tasks.filter(task => {
+      return task !== taskToDelete
+
+    })
+
+    setTasks(tasksWithoutDeletedOne);
   }
 
   return (
@@ -66,7 +62,7 @@ export function TaskList() {
       <div className={styles.counters}>
         <div className={styles.taskCreated}>
           <p>Tarefas criadas</p>
-          <span>5</span>
+          <span>{tasks.length}</span>
         </div>
         <div className={styles.taskCompleted}>
           <p>Concluídas</p>
@@ -79,9 +75,12 @@ export function TaskList() {
           tasks.map((task) => {
             return (
               <Task
-                key={task}
+                key={uuidv4()}
                 title={task}
                 isComplete={false}
+                onCheckTask={checkTask}
+                onCountCompletes={countCompletes}
+                onDeleteTask={deleteTask}
               />
             )
           })

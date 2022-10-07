@@ -1,18 +1,32 @@
 import { Trash } from 'phosphor-react';
 import { MouseEvent } from 'react';
+import { v4 as uuidv4 } from 'uuid'
 
 import styles from './Task.module.css';
 
 interface TaskProps {
   title: string;
   isComplete: boolean;
+  onCheckTask: (x: string)=> void;
+  onCountCompletes: (x:string)=> void
+  onDeleteTask: (x:string)=> void
 }
 
-export function Task({title, isComplete}: TaskProps) {
+export function Task({title, isComplete, onCheckTask, onCountCompletes, onDeleteTask}: TaskProps) {
   
   function handleCompletedChange(event: MouseEvent<HTMLInputElement>) {
-    console.log(event.target)
+    onCheckTask(title)
+
+    onCountCompletes(title)
+
+    console.log(onCheckTask(title))
   }
+
+  function handleDeleteTask() {
+
+    onDeleteTask(title);
+  }
+
 
   return (
     <div className={styles.contentTask}>
@@ -24,7 +38,7 @@ export function Task({title, isComplete}: TaskProps) {
           {isComplete}
         </p>
       </div>
-      <button>
+      <button onClick={handleDeleteTask} title="Deletar tarefa">
         <Trash size={20} />
       </button>
     </div>
