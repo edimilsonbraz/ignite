@@ -36,32 +36,30 @@ export function TaskList() {
   }
   
   function checkTask(taskClicked: string) {
-    const filterTasks = tasks.filter(task => task.title !== taskClicked)
+    const filterTasks = tasks.filter(task => task.title !== taskClicked)//retira a task 
     const changeTask = tasks.find(task => task.title === taskClicked)!
     setTasks([...filterTasks, {title: changeTask.title, isComplete: !changeTask.isComplete}])
 
     countCompleted(taskClicked);
-   
   }
 
-  function countCompleted(task: string) {
-    if(completedTasks < countTasks) {
-      setCompletedTasks(completedTasks + 1) 
-    }
+  function countCompleted(taskClicked: string) {
+    const taskState = tasks.find(task => task.title === taskClicked)!
+    const currentStage = taskState.isComplete
+    const newTask = tasks.filter(task => task.isComplete)
+    const tasksCompletedResult = currentStage ? newTask.length - 1 : newTask.length + 1
+    setCompletedTasks(tasksCompletedResult)
   }
+
   function deleteTask(taskToDelete: string) {
     const tasksWithoutDeletedOne = tasks.filter(task => {
       return task.title !== taskToDelete
     })
+    const taskToRemoveFromComplete = tasks.find(task => task.title=== taskToDelete)!
 
     setTasks(tasksWithoutDeletedOne);
-
-    setCountTasks(tasks.length - 1)
-
-    if(completedTasks > 0) {
-
-      setCompletedTasks(completedTasks - 1)
-    }
+    setCountTasks(tasks.length - 1);
+    setCompletedTasks(taskToRemoveFromComplete.isComplete ? completedTasks - 1 : completedTasks)
   }
 
   return (
