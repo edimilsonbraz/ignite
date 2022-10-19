@@ -10,10 +10,12 @@ export function Header() {
 
       <nav>
         <div className='locale'>
-          <MapPin size={25} />
+          <MapPin size={22} weight="fill"/>
           <span>Brasília, DF</span>
         </div>
-        <ShoppingCart size={25} />
+        <button>
+          <ShoppingCart size={22} weight="fill"/>
+        </button>
       </nav>
     </HeaderContainer>
   );
