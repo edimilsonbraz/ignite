@@ -3,11 +3,7 @@ import { BannerContainer, IconsContent } from './styles'
 
 import banner from '../../assets/banner.png'
 
-interface IconProps {
-  variant?: 'primary' | 'secondary' | 'base' | 'brand';
-}
-
-export function Intro(props: IconProps) {
+export function Intro() {
   return (
     <BannerContainer>
       <div className="ContentText">

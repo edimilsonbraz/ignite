@@ -19,7 +19,10 @@ body, input, textarea, button {
   /* color: var(--gray-100); */
 }
 
-
+&:focus {
+  outline: 0;
+  box-shadow: 0 0 0 2px ${props => props.theme['yellow-500']};
+}
 
 h1, h2, h3, h4, h5 {
   font-family: 'Baloo 2', cursive;
