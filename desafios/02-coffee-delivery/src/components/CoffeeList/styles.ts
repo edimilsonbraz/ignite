@@ -1,11 +1,8 @@
 import styled from "styled-components";
 
 export const CoffeeContainer = styled.section`
-  /* width: 70rem;
-  margin: 0 auto; */
-  margin-bottom: 15rem;
+  margin-bottom: 5rem;
   
- 
   h2 {
     margin-bottom: 3.375rem;
   }
@@ -13,7 +10,8 @@ export const CoffeeContainer = styled.section`
 `;
 
 export const CoffeList = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 
   .coffeeCard {
     display: flex;
@@ -26,6 +24,7 @@ export const CoffeList = styled.div`
     border-radius: 6px 36px 6px 36px;
 
     margin-right: 2rem;
+    margin-bottom: 2.5rem;
 
     img {
       width: 7.5rem;
@@ -61,7 +60,16 @@ export const CoffeList = styled.div`
 
       margin-bottom: 2rem;
     }
+
+    &:nth-child(4n) {
+      margin-right: 0rem;
+    }
+
+    &:nth-last-child(-n+2) {
+      margin-bottom: 0;
+    }
   }
+  
 `;
 
 export const TagContent = styled.div`
@@ -87,7 +95,7 @@ export const BaseInput = styled.div`
     padding: 0.4rem 0.5rem;
 
     border-radius: 6px;
-
+    cursor: pointer;
     transition: all 0.2s;
 
     svg {
