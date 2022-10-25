@@ -19,20 +19,6 @@ export const CoffeList = styled.div`
       margin-bottom: 0.75rem;
     }
 
-    .tag {
-      background: ${props => props.theme["yellow-300"]};
-      color: ${props => props.theme["yellow-700"]};
-
-      text-transform: uppercase;
-      font-size: 0.625rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      padding: 0.5rem;
-      border-radius: 50px;
-
-      margin-right: 0.5rem;
-    }
-    
     h3 {
       margin-bottom: 0.5rem;
     }
@@ -50,8 +36,27 @@ export const CoffeList = styled.div`
   
 `;
 
+export const TagContainer = styled.div`
+  display:flex;
+`;
+
 export const TagContent = styled.div`
+  background: ${props => props.theme["yellow-300"]};
+  color: ${props => props.theme["yellow-700"]};
+
+  text-transform: uppercase;
+  font-size: 0.625rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  padding: 0.5rem;
+  border-radius: 50px;
+
+  margin-right: 0.5rem;
   margin-bottom: 1rem;
+
+  + div {
+    margin-left: 0.25rem;
+  }
 `;
 
 export const BaseInput = styled.div`  

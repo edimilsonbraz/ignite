@@ -1,6 +1,7 @@
 import {
   BaseInput,
   CoffeList,
+  TagContainer,
   TagContent,
   ValueCoffeInput
 } from './styles'
@@ -21,9 +22,12 @@ export function CoffeeList(props: CoffeeProps) {
     <CoffeList>
       <div className="coffeeCard">
         <img src={props.imgUrl} alt="" />
-        <TagContent>
-          <span className="tag">{props.tags}</span>
-        </TagContent>
+        <TagContainer>
+          {props.tags?.map((item, i) => {
+            return <TagContent key={i}>{item}</TagContent>
+          })}
+          
+        </TagContainer>
         <h3>{props.title}</h3>
         <p>{props.description}</p>
         <BaseInput>
