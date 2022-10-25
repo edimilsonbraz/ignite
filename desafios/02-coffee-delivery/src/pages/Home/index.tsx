@@ -1,11 +1,15 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
-import { BannerContainer, IconsContent } from './styles'
 
+import { CoffeeList } from '../../components/CoffeeList'
+import { coffeItem } from '../../contexts/coffeeItem'
+
+import { BannerContainer, CoffeeContainer, CoffeeContent, IconsContent } from './styles'
 import banner from '../../assets/banner.png'
 
-export function Intro() {
+export function Home() {
   return (
-    <BannerContainer>
+    <>
+      <BannerContainer>
       <div className="ContentText">
         <h1>Encontre o café perfeito para qualquer hora do dia</h1>
 
@@ -45,5 +49,25 @@ export function Intro() {
         <img src={banner} alt="imagem Coffer Delivery" />
       </div>
     </BannerContainer>
+
+      <CoffeeContainer>
+        <h2>Nossos cafés</h2>
+        <CoffeeContent>
+          {coffeItem.map((item) => {
+            return (
+              <CoffeeList
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                description={item.description}
+                imgUrl={item.imgUrl}
+                tags={item.tags}
+                price={item.price}
+              />
+            )
+          })}
+        </CoffeeContent>
+      </CoffeeContainer>
+    </>
   )
 }

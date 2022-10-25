@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const BannerContainer = styled.div`
   width: 100%;
@@ -65,8 +65,23 @@ export const IconsContent = styled.div`
     .brand {
       background: ${props => props.theme['purple-500']};
     }
-    
-
-   
   }
 `
+
+export const CoffeeContainer = styled.section`
+  margin-bottom: 5rem; 
+
+  h2 {
+    margin-bottom: 3.375rem;
+  }
+`;
+
+export const CoffeeContent = styled.div `
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 2rem;
+
+  div:nth-child(4n) {
+    grid-gap: 0rem;
+  }
+`;

@@ -1,18 +1,6 @@
 import styled from "styled-components";
 
-export const CoffeeContainer = styled.section`
-  margin-bottom: 5rem;
-  
-  h2 {
-    margin-bottom: 3.375rem;
-  }
-
-`;
-
 export const CoffeList = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-
   .coffeeCard {
     display: flex;
     flex-direction: column;
@@ -21,10 +9,7 @@ export const CoffeList = styled.div`
     padding: 0 1rem 1.25rem;
 
     background: ${props => props.theme["gray-100"]};
-    border-radius: 6px 36px 6px 36px;
-
-    margin-right: 2rem;
-    margin-bottom: 2.5rem;
+    border-radius: 6px 36px 6px 36px;    
 
     img {
       width: 7.5rem;
@@ -61,13 +46,6 @@ export const CoffeList = styled.div`
       margin-bottom: 2rem;
     }
 
-    &:nth-child(4n) {
-      margin-right: 0rem;
-    }
-
-    &:nth-last-child(-n+2) {
-      margin-bottom: 0;
-    }
   }
   
 `;
@@ -79,8 +57,6 @@ export const TagContent = styled.div`
 export const BaseInput = styled.div`  
   display: flex;
   align-items: center;
-
-  
 
   span {
     font-weight: bold;
