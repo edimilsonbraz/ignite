@@ -9,7 +9,7 @@ import {
 import { ShoppingCart } from 'phosphor-react'
 
 export interface CoffeeProps {
-  id?: number
+  id: number
   imgUrl: string
   tags: string[] | undefined
   title: string
@@ -26,7 +26,6 @@ export function CoffeeList(props: CoffeeProps) {
           {props.tags?.map((item, i) => {
             return <TagContent key={i}>{item}</TagContent>
           })}
-          
         </TagContainer>
         <h3>{props.title}</h3>
         <p>{props.description}</p>

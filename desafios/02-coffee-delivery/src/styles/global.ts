@@ -9,6 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
 body {
   background: ${props => props.theme.background};
+  color:  ${props => props.theme['base-subtitle']};
   -webkit-font-smoothing: antialiased; /* deixa a fonte mais detalhada nos navegadores */
 }
 
