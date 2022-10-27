@@ -2,11 +2,11 @@ import {
   Bank,
   CreditCard,
   CurrencyDollar,
-  MapPin,
   MapPinLine,
   Money,
   Trash
 } from 'phosphor-react'
+
 import {
   ContainerLeft,
   ContainerRight,
@@ -15,8 +15,14 @@ import {
   InputContent,
   InputForm,
   InputText,
+  ItemCart,
+  ItemCartInput,
+  TotalItens,
   TypePayment
 } from './styles'
+
+import coffee001 from '../../assets/coffees/americano.svg'
+import coffee002 from '../../assets/coffees/latte.svg'
 
 export function Checkout() {
   return (
@@ -26,7 +32,7 @@ export function Checkout() {
           <h3>Complete seu pedido</h3>
           <InputForm>
             <InputText>
-              <MapPinLine size={22}/>
+              <MapPinLine size={22} />
               <div>
                 <p>Endereço de Entrega</p>
                 <p>Informe o endereço onde deseja receber seu pedido</p>
@@ -34,49 +40,83 @@ export function Checkout() {
             </InputText>
             <InputContent>
               <div>
-                <input className='one' type="text" name='cep' placeholder="CEP" />
+                <input
+                  className="one"
+                  type="text"
+                  name="cep"
+                  placeholder="CEP"
+                />
               </div>
               <div>
-                <input className='two' type="text" name='rua' placeholder="Rua" />
+                <input
+                  className="two"
+                  type="text"
+                  name="rua"
+                  placeholder="Rua"
+                />
               </div>
               <div>
-                <input className='three' type="text" name='numero' placeholder="Numero" />
-                <input 
-                  className='four' 
-                  type="text" 
-                  name='complemento' 
-                  placeholder="Complemento Opcional"/>
+                <input
+                  className="three"
+                  type="text"
+                  name="numero"
+                  placeholder="Numero"
+                />
+                <input
+                  className="four"
+                  type="text"
+                  name="complemento"
+                  placeholder="Complemento Opcional"
+                />
               </div>
               <div>
-                <input className='five' type="text" name='bairro' placeholder="Bairro" />
-                <input className='six' type="text" name='cidade' placeholder="Cidade" />
-                <input className='seven' type="text" name='placeholder' placeholder="UF" />
+                <input
+                  className="five"
+                  type="text"
+                  name="bairro"
+                  placeholder="Bairro"
+                />
+                <input
+                  className="six"
+                  type="text"
+                  name="cidade"
+                  placeholder="Cidade"
+                />
+                <input
+                  className="seven"
+                  type="text"
+                  name="placeholder"
+                  placeholder="UF"
+                />
               </div>
             </InputContent>
           </InputForm>
 
           <TypePayment>
-            <CurrencyDollar />
-            <div>
-              <p>Pagamento</p>
-              <p>
-                O pagamento é feito na entrega. Escolha a forma que deseja pagar
-              </p>
+            <div className='paymentText'>
+              <CurrencyDollar size={22}/>
+              <div>
+                <p>Pagamento</p>
+                <p>
+                  O pagamento é feito na entrega. Escolha a forma que deseja
+                  pagar
+                </p>
+              </div>
             </div>
 
-            <div>
-              <div>
-                <CreditCard />
+            <div className='paymentCart'>
+              <button value="cartaoCredito">
+                <CreditCard size={18}/>
                 Cartão de crédito
-              </div>
-              <div>
-                <Bank />
+              </button>
+              <button value="cartaoDebito">
+                <Bank size={18}/>
                 Cartão de débito
-              </div>
-              <div>
-                <Money />
+              </button>
+              <button value="debito">
+                <Money size={18}/>
                 Dinheiro
-              </div>
+              </button>
             </div>
           </TypePayment>
         </ContainerLeft>
@@ -84,32 +124,40 @@ export function Checkout() {
         <ContainerRight>
           <h3>Cafés selecionados</h3>
           <ContentCart>
-            <div>
-              <img src="../../assets/coffees/americano.svg" alt="" />
+            <ItemCart>
+              <img src={coffee001} alt="" />
               <div>
                 <p>Expresso Tradicional</p>
-                <input type="number" max="50" name="" id="" />
-                <div>
-                  <Trash />
-                  Remover
-                </div>
-                R$ 9,90
+                <ItemCartInput>
+                  <input type="number" max="50" name="" id="" />
+                  <button>
+                    <Trash size={16}/>
+                    Remover
+                  </button>
+                </ItemCartInput>               
               </div>
-            </div>
-            <div>
-              <img src="../../assets/coffees/latte.svg" alt="" />
+              <span>
+                R$ 9,90
+              </span>
+            </ItemCart>
+            <ItemCart>
+              <img src={coffee002} alt="" />
               <div>
                 <p>Latte</p>
-                <input type="number" max="50" name="" id="" />
-                <div>
-                  <Trash />
-                  Remover
-                </div>
-                R$ 19,90
+                <ItemCartInput>
+                  <input type="number" max="50" name="" id="" />
+                  <button>
+                    <Trash size={16}/>
+                    Remover
+                  </button>
+                </ItemCartInput>                
               </div>
-            </div>
+              <span>
+                R$ 19,90
+              </span>
+            </ItemCart>
 
-            <div>
+            <TotalItens>
               <div>
                 <p>Total de itens</p>
                 <span>R$ 29,70</span>
@@ -119,11 +167,11 @@ export function Checkout() {
                 <span>R$ 3,50</span>
               </div>
               <div>
-                <p>Total</p>
-                <span>R$ 33,20</span>
+                <h3>Total</h3>
+                <span className='totalPrice'>R$ 33,20</span>
               </div>
               <button type="submit">Confirmar Pedido</button>
-            </div>
+            </TotalItens>
           </ContentCart>
         </ContainerRight>
       </form>
