@@ -71,6 +71,7 @@ export const BaseInput = styled.div`
   }
 
   button {
+    background: ${props => props.theme["purple-700"]};
     border: 0;
     padding: 0.4rem 0.5rem;
     border-radius: 6px;
@@ -82,21 +83,16 @@ export const BaseInput = styled.div`
     svg {
       color: ${props => props.theme.white};
     }
-    
-  }
-
-  .buttonCart {
-    background: ${props => props.theme["purple-700"]};
 
     &:hover {
       background: ${props => props.theme["purple-500"]};
     }
+    
   }
-
 
 `;
 
-export const CoffeeCount = styled.button`
+export const CoffeeCount = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -107,12 +103,17 @@ export const CoffeeCount = styled.button`
   border-radius: 6px;
   background: ${props => props.theme["gray-300"]};
   text-align: center;
+  
 
   margin-right: 0.5rem;
 
   .sinal {
     font-size: 1.5rem;
     color: ${props => props.theme["purple-500"]};
+    cursor: pointer;
+
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
   }
 `;
 

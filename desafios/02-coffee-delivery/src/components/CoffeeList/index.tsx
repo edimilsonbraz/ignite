@@ -7,7 +7,7 @@ import {
 } from './styles'
 
 import { Minus, Plus, ShoppingCart } from 'phosphor-react'
-import { useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 export interface CoffeeProps {
   id: number
@@ -18,8 +18,44 @@ export interface CoffeeProps {
   price: number
 }
 
+interface CoffeeContextType {
+  contextCoffee: CoffeeProps | undefined;
+}
+
+// interface OrderContextData {
+//   coffeeOrder: (data: coffeOrderProps) => void
+//   order: coffeOrderProps[]
+//   quantityItems: number
+// }
+
+//Criando o Contexto
+export const OrderContext = createContext({} as CoffeeContextType)
+
+
 export function CoffeeList(props: CoffeeProps) {
-  const [countCoffee, setCountCoffee] = useState(0);
+  // const { coffeeOrder } = useContext(OrderContext);
+  const [countCoffee, setCountCoffee] = useState(1);
+
+  function sumItemCoffee() {
+    setCountCoffee(countCoffee + 1)
+  }
+
+  function decreaseItemCoffe() {
+    if(countCoffee > 0) {
+      setCountCoffee(countCoffee - 1)
+    }
+  }
+
+  function handleCoffeeOrder() {
+    // coffeeOrder({
+    //   idCoffee: props.id,
+    //   title: props.title,
+    //   price: props.price,
+    //   countCoffee
+    // })
+
+    // console.log(coffeeOrder())
+  }
   
   return (
     <CoffeList>
@@ -38,7 +74,7 @@ export function CoffeeList(props: CoffeeProps) {
             <Minus 
               size={16} 
               className='sinal'
-              onClick={() => setCountCoffee((countCoffee - 1))}
+              onClick={decreaseItemCoffe}
             />
             
             <span>{countCoffee}</span>
@@ -46,14 +82,15 @@ export function CoffeeList(props: CoffeeProps) {
             <Plus 
               size={16}
               className='sinal' 
-              onClick={() => setCountCoffee((countCoffee + 1))}
+              onClick={sumItemCoffee}
             />
             
           </CoffeeCount>
           
-          <button className='buttonCart'>
+          <button className='buttonCart' onClick={handleCoffeeOrder}>
             <ShoppingCart size={22} weight="fill" />
           </button>
+          
         </BaseInput>
       </div>
     </CoffeList>

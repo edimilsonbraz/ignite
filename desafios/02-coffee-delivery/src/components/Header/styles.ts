@@ -18,12 +18,14 @@ export const HeaderContainer = styled.header `
       border-radius: 6px;
       font-size: 0.875rem;
 
+      margin-right: 0.75rem;
+
       svg {
         margin-right: 0.5rem;
       }
     }
 
-    button {
+    .cart {
       background: ${props => props.theme['yellow-300']};
       color: ${props => props.theme['yellow-700']};
 
@@ -32,7 +34,7 @@ export const HeaderContainer = styled.header `
       border: 0;
       border-radius: 6px;
 
-      margin-left: 0.75rem;
+      
 
       cursor: pointer;
     }
