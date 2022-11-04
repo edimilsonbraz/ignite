@@ -1,7 +1,7 @@
 import { Coffee, Package, ShoppingCart, Timer } from 'phosphor-react'
 
 import { CoffeeList } from '../../components/CoffeeList'
-import { coffeItem } from '../../contexts/coffeeItem'
+import { coffeItem } from '../../utils/coffeeItem'
 
 import { BannerContainer, CoffeeContainer, CoffeeContent, IconsContent } from './styles'
 import banner from '../../assets/banner.png'

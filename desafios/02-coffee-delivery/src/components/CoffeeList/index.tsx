@@ -1,13 +1,14 @@
+import { OrderContext } from '../../contexts/OrderContext'
+import { Minus, Plus, ShoppingCart } from 'phosphor-react'
+import { useContext, useState } from 'react'
+
 import {
   BaseInput,
   CoffeeCount,
   CoffeList,
   TagContainer,
-  TagContent,
+  TagContent
 } from './styles'
-
-import { Minus, Plus, ShoppingCart } from 'phosphor-react'
-import { createContext, useContext, useState } from 'react'
 
 export interface CoffeeProps {
   id: number
@@ -18,45 +19,29 @@ export interface CoffeeProps {
   price: number
 }
 
-interface CoffeeContextType {
-  contextCoffee: CoffeeProps | undefined;
-}
-
-// interface OrderContextData {
-//   coffeeOrder: (data: coffeOrderProps) => void
-//   order: coffeOrderProps[]
-//   quantityItems: number
-// }
-
-//Criando o Contexto
-export const OrderContext = createContext({} as CoffeeContextType)
-
-
 export function CoffeeList(props: CoffeeProps) {
-  // const { coffeeOrder } = useContext(OrderContext);
-  const [countCoffee, setCountCoffee] = useState(1);
+  const { coffeeOrder } = useContext(OrderContext)
+  const [countCoffee, setCountCoffee] = useState(1)
 
   function sumItemCoffee() {
     setCountCoffee(countCoffee + 1)
   }
 
   function decreaseItemCoffe() {
-    if(countCoffee > 0) {
+    if (countCoffee > 0) {
       setCountCoffee(countCoffee - 1)
     }
   }
 
   function handleCoffeeOrder() {
-    // coffeeOrder({
-    //   idCoffee: props.id,
-    //   title: props.title,
-    //   price: props.price,
-    //   countCoffee
-    // })
-
-    // console.log(coffeeOrder())
+    coffeeOrder({
+      idCoffee: props.id,
+      price: props.price,
+      countCoffee,
+    })
+    console.log(countCoffee)
   }
-  
+
   return (
     <CoffeList>
       <div className="coffeeCard">
@@ -69,28 +54,17 @@ export function CoffeeList(props: CoffeeProps) {
         <h3>{props.title}</h3>
         <p>{props.description}</p>
         <BaseInput>
-          R$ <span className='price'>{props.price}</span>
+          R$ <span className="price">{props.price}</span>
           <CoffeeCount>
-            <Minus 
-              size={16} 
-              className='sinal'
-              onClick={decreaseItemCoffe}
-            />
-            
+            <Minus size={16} className="sinal" onClick={decreaseItemCoffe} />
+
             <span>{countCoffee}</span>
 
-            <Plus 
-              size={16}
-              className='sinal' 
-              onClick={sumItemCoffee}
-            />
-            
+            <Plus size={16} className="sinal" onClick={sumItemCoffee} />
           </CoffeeCount>
-          
-          <button className='buttonCart' onClick={handleCoffeeOrder}>
+          <button className="buttonCart" onClick={handleCoffeeOrder}>
             <ShoppingCart size={22} weight="fill" />
           </button>
-          
         </BaseInput>
       </div>
     </CoffeList>
