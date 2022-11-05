@@ -164,19 +164,8 @@ export const ItemCart = styled.div `
     margin-bottom: .5rem;
   }
 
-  input {
-    width: 4.5rem;
-    height: 2rem;
-    border: 0;
-    border-radius: 6px;
-    background: ${props => props.theme["gray-300"]};
-    text-align: center;
-    margin-right: 0.5rem;
-  }
-
   span {
     font-weight: bold;
-    margin-bottom: 1.5rem;
     text-align: right;
   }
 
@@ -184,6 +173,29 @@ export const ItemCart = styled.div `
   padding-bottom: 1.5rem;
 
   margin-bottom: 1.5rem;
+`;
+
+export const CoffeeCount = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 5rem; 
+  height: 2.375rem; 
+  border: 0;
+  border-radius: 6px;
+  background: ${props => props.theme["gray-300"]};
+  
+  margin-right: 0.5rem;
+
+  .sinal {
+    font-size: 1.5rem;
+    color: ${props => props.theme["purple-500"]};
+    cursor: pointer;
+
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 `;
 
 export const ItemCartInput = styled.div ` 

@@ -1,13 +1,19 @@
+import { useContext } from 'react'
+import { OrderContext } from '../../contexts/OrderContext'
+
 import {
   Bank,
   CreditCard,
   CurrencyDollar,
   MapPinLine,
+  Minus,
   Money,
+  Plus,
   Trash
 } from 'phosphor-react'
 
 import {
+  CoffeeCount,
   ContainerLeft,
   ContainerRight,
   ContentCart,
@@ -24,7 +30,10 @@ import {
 import coffee001 from '../../assets/coffees/americano.svg'
 import coffee002 from '../../assets/coffees/latte.svg'
 
+
 export function Checkout() {
+  const { order } = useContext(OrderContext)
+
   return (
     <FormContainer>
       <form action="">
@@ -124,12 +133,22 @@ export function Checkout() {
         <ContainerRight>
           <h3>Cafés selecionados</h3>
           <ContentCart>
+            {/* {order.map((item) => {
+              <p>{item.countCoffee}</p>
+             
+            })} */}
             <ItemCart>
               <img src={coffee001} alt="" />
               <div>
                 <p>Expresso Tradicional</p>
                 <ItemCartInput>
-                  <input type="number" max="50" name="" id="" />
+                  <CoffeeCount>
+                    <Minus size={16} className="sinal" />
+
+                    <span>1</span>
+
+                    <Plus size={16} className="sinal" />
+                  </CoffeeCount>
                   <button>
                     <Trash size={16}/>
                     Remover
@@ -141,16 +160,22 @@ export function Checkout() {
               </span>
             </ItemCart>
             <ItemCart>
-              <img src={coffee002} alt="" />
+            <img src={coffee002} alt="" />
               <div>
-                <p>Latte</p>
+                <p>Expresso Tradicional</p>
                 <ItemCartInput>
-                  <input type="number" max="50" name="" id="" />
+                <CoffeeCount>
+                  <Minus size={16} className="sinal" />
+
+                  <span>1</span>
+
+                  <Plus size={16} className="sinal" />
+                </CoffeeCount>
                   <button>
                     <Trash size={16}/>
                     Remover
                   </button>
-                </ItemCartInput>                
+                </ItemCartInput>               
               </div>
               <span>
                 R$ 19,90
