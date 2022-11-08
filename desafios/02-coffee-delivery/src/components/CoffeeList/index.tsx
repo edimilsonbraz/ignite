@@ -36,6 +36,7 @@ export function CoffeeList(props: CoffeeProps) {
   function handleCoffeeOrder() {
     coffeeOrder({
       idCoffee: props.id,
+      title: props.title,
       price: props.price,
       countCoffee,
     })

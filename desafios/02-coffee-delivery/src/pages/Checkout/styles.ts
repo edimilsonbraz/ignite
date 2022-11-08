@@ -249,6 +249,7 @@ export const TotalItens = styled.div `
     letter-spacing: .5px;
     border: none;
     border-radius: 6px;
+    padding: 1rem;
     color: ${props => props.theme.white};
     background: ${props => props.theme["yellow-500"]};
 

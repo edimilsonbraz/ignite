@@ -2,6 +2,7 @@ import { createContext, ReactNode, useState } from 'react'
 
 interface coffeOrderProps {
   idCoffee: number
+  title: string
   countCoffee: number
   price: number
 }

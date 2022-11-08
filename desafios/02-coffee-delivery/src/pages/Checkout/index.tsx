@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { OrderContext } from '../../contexts/OrderContext'
 
 import {
@@ -30,9 +30,32 @@ import {
 import coffee001 from '../../assets/coffees/americano.svg'
 import coffee002 from '../../assets/coffees/latte.svg'
 
+interface CartItemProps {
+  title: string
+  countCoffee: number
+  imgUrl: string
+  price: number
+}
 
-export function Checkout() {
-  const { order } = useContext(OrderContext)
+export function Checkout({ title, countCoffee, imgUrl, price }: CartItemProps) {
+  const { coffeeOrder, order, quantityItems } = useContext(OrderContext)
+
+  const [newQuantity, setNewQuantity] = useState(countCoffee)
+
+  console.log(order)
+
+  function handleAddQuantity() {
+    const addedQuantity = newQuantity + 1
+
+    setNewQuantity(addedQuantity)
+  }
+
+  function handleRemoveQuantity() {
+    if (newQuantity > 0) {
+      const addedQuantity = newQuantity - 1
+      setNewQuantity(addedQuantity)
+    }
+  }
 
   return (
     <FormContainer>
@@ -102,8 +125,8 @@ export function Checkout() {
           </InputForm>
 
           <TypePayment>
-            <div className='paymentText'>
-              <CurrencyDollar size={22}/>
+            <div className="paymentText">
+              <CurrencyDollar size={22} />
               <div>
                 <p>Pagamento</p>
                 <p>
@@ -113,17 +136,17 @@ export function Checkout() {
               </div>
             </div>
 
-            <div className='paymentCart'>
+            <div className="paymentCart">
               <button value="cartaoCredito">
-                <CreditCard size={18}/>
+                <CreditCard size={18} />
                 Cartão de crédito
               </button>
               <button value="cartaoDebito">
-                <Bank size={18}/>
+                <Bank size={18} />
                 Cartão de débito
               </button>
               <button value="debito">
-                <Money size={18}/>
+                <Money size={18} />
                 Dinheiro
               </button>
             </div>
@@ -133,55 +156,38 @@ export function Checkout() {
         <ContainerRight>
           <h3>Cafés selecionados</h3>
           <ContentCart>
-            {/* {order.map((item) => {
-              <p>{item.countCoffee}</p>
-             
-            })} */}
-            <ItemCart>
-              <img src={coffee001} alt="" />
-              <div>
-                <p>Expresso Tradicional</p>
-                <ItemCartInput>
-                  <CoffeeCount>
-                    <Minus size={16} className="sinal" />
+            {order.map((item) => {
+              return (
+                <ItemCart>
+                  <img src={coffee001} alt="" />
+                  <div>
+                    <p>{item.title}</p>
+                    <ItemCartInput>
+                      <CoffeeCount>
+                        <Minus
+                          size={16}
+                          className="sinal"
+                          onClick={handleRemoveQuantity}
+                        />
 
-                    <span>1</span>
+                        <span>{item.countCoffee}</span>
 
-                    <Plus size={16} className="sinal" />
-                  </CoffeeCount>
-                  <button>
-                    <Trash size={16}/>
-                    Remover
-                  </button>
-                </ItemCartInput>               
-              </div>
-              <span>
-                R$ 9,90
-              </span>
-            </ItemCart>
-            <ItemCart>
-            <img src={coffee002} alt="" />
-              <div>
-                <p>Expresso Tradicional</p>
-                <ItemCartInput>
-                <CoffeeCount>
-                  <Minus size={16} className="sinal" />
-
-                  <span>1</span>
-
-                  <Plus size={16} className="sinal" />
-                </CoffeeCount>
-                  <button>
-                    <Trash size={16}/>
-                    Remover
-                  </button>
-                </ItemCartInput>               
-              </div>
-              <span>
-                R$ 19,90
-              </span>
-            </ItemCart>
-
+                        <Plus
+                          size={16}
+                          className="sinal"
+                          onClick={handleAddQuantity}
+                        />
+                      </CoffeeCount>
+                      <button>
+                        <Trash size={16} />
+                        Remover
+                      </button>
+                    </ItemCartInput>
+                  </div>
+                  <span>{item.price.toFixed(2)}</span>
+                </ItemCart>
+              )
+            })}
             <TotalItens>
               <div>
                 <p>Total de itens</p>
@@ -193,7 +199,7 @@ export function Checkout() {
               </div>
               <div>
                 <h3>Total</h3>
-                <span className='totalPrice'>R$ 33,20</span>
+                <span className="totalPrice">R$ 33,20</span>
               </div>
               <button type="submit">Confirmar Pedido</button>
             </TotalItens>
