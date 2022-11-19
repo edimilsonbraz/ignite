@@ -201,7 +201,7 @@ export const CoffeeCount = styled.div`
 export const ItemCartInput = styled.div ` 
   display: flex;
 
-  button {
+  .button-remove {
     display: flex;
     align-items: center;
 

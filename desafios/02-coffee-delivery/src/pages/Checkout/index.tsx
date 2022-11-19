@@ -28,21 +28,25 @@ import {
 } from './styles'
 
 import coffee001 from '../../assets/coffees/americano.svg'
-import coffee002 from '../../assets/coffees/latte.svg'
 
 interface CartItemProps {
+  idCoffee: number
   title: string
   countCoffee: number
   imgUrl: string
   price: number
 }
 
-export function Checkout({ title, countCoffee, imgUrl, price }: CartItemProps) {
-  const { coffeeOrder, order, quantityItems } = useContext(OrderContext)
 
+export function Checkout({idCoffee, title, countCoffee, imgUrl, price }: CartItemProps) {
+
+  const { coffeeOrder, order, quantityItems, removeFromCard } = useContext(OrderContext)
   const [newQuantity, setNewQuantity] = useState(countCoffee)
+  const [totalItem, setTotalItem] = useState(0)
+ 
 
   console.log(order)
+  console.log(quantityItems)
 
   function handleAddQuantity() {
     const addedQuantity = newQuantity + 1
@@ -51,10 +55,18 @@ export function Checkout({ title, countCoffee, imgUrl, price }: CartItemProps) {
   }
 
   function handleRemoveQuantity() {
+    console.log("Entrei na function remove quantity")
     if (newQuantity > 0) {
       const addedQuantity = newQuantity - 1
       setNewQuantity(addedQuantity)
     }
+  }
+
+  function sumItens(value: number, quantity: number) {
+     
+    setTotalItem(value * quantity)
+
+    return totalItem
   }
 
   return (
@@ -158,9 +170,11 @@ export function Checkout({ title, countCoffee, imgUrl, price }: CartItemProps) {
           <ContentCart>
             {order.map((item) => {
               return (
-                <ItemCart>
-                  <img src={coffee001} alt="" />
+                <ItemCart key={item.idCoffee}>
+                  
+                  <img src={item.imgUrl} alt="" />
                   <div>
+                    
                     <p>{item.title}</p>
                     <ItemCartInput>
                       <CoffeeCount>
@@ -178,13 +192,18 @@ export function Checkout({ title, countCoffee, imgUrl, price }: CartItemProps) {
                           onClick={handleAddQuantity}
                         />
                       </CoffeeCount>
-                      <button>
-                        <Trash size={16} />
+                      <div 
+                        className='button-remove' 
+                        onClick={() => removeFromCard(idCoffee)}>
+                        <Trash 
+                          size={16} 
+                        />
                         Remover
-                      </button>
+                      </div>
                     </ItemCartInput>
                   </div>
-                  <span>{item.price.toFixed(2)}</span>
+                  <span>{(item.price * item.countCoffee).toFixed(2)}</span>
+                  {/* <span>{sumItens(item.price, item.countCoffee)}</span> */}
                 </ItemCart>
               )
             })}

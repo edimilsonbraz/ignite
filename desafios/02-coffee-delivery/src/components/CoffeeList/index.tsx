@@ -37,10 +37,10 @@ export function CoffeeList(props: CoffeeProps) {
     coffeeOrder({
       idCoffee: props.id,
       title: props.title,
+      imgUrl: props.imgUrl,
       price: props.price,
       countCoffee,
     })
-    console.log(countCoffee)
   }
 
   return (

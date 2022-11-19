@@ -3,6 +3,7 @@ import { createContext, ReactNode, useState } from 'react'
 interface coffeOrderProps {
   idCoffee: number
   title: string
+  imgUrl: string
   countCoffee: number
   price: number
 }
@@ -11,6 +12,7 @@ interface OrderContextData {
   coffeeOrder: (data: coffeOrderProps) => void
   order: coffeOrderProps[]
   quantityItems: number
+  removeFromCard: (idCoffee: number) => void
 }
 
 //Criando o Contexto
@@ -22,6 +24,7 @@ interface OrderContextProviderProps {
 
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const [order, setOrder] = useState<coffeOrderProps[]>([])
+  const [itemsInCard, setItemsInCard ] = useState([])
   let quantityItems = 0
   if (order.length > 0) {
     quantityItems = order
@@ -46,12 +49,19 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     }
   }
 
+  function removeFromCard(idCoffee: number) {
+    const filteredItems = itemsInCard.filter((item) => item.idCoffee !== idCoffee)
+    setItemsInCard(filteredItems)
+    console.log("id: ",filteredItems)
+  }
+
   return(
     <OrderContext.Provider
       value={{
         coffeeOrder,
         quantityItems,
         order,
+        removeFromCard,
       }}
     >
       {children}
