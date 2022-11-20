@@ -20,7 +20,7 @@ export interface CoffeeProps {
 }
 
 export function CoffeeList(props: CoffeeProps) {
-  const { coffeeOrder } = useContext(OrderContext)
+  const { addToCart } = useContext(OrderContext)
   const [countCoffee, setCountCoffee] = useState(1)
 
   function sumItemCoffee() {
@@ -34,7 +34,7 @@ export function CoffeeList(props: CoffeeProps) {
   }
 
   function handleCoffeeOrder() {
-    coffeeOrder({
+    addToCart({
       idCoffee: props.id,
       title: props.title,
       imgUrl: props.imgUrl,

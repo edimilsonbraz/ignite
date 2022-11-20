@@ -9,11 +9,12 @@ interface coffeOrderProps {
 }
 
 interface OrderContextData {
-  coffeeOrder: (data: coffeOrderProps) => void
+  addToCart: (newState: coffeOrderProps) => void
   order: coffeOrderProps[]
   quantityItems: number
-  calcTotalPriceCoffee: () => void
-  removeFromCard: (idCoffee: number) => void
+  valueTotal: number
+  changeQuantityCoffee: (newState: coffeOrderProps) => void
+  removeCoffe: (newState: coffeOrderProps) => void
 }
 
 //Criando o Contexto
@@ -25,56 +26,80 @@ interface OrderContextProviderProps {
 
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const [order, setOrder] = useState<coffeOrderProps[]>([])
-  const [itemsInCard, setItemsInCard ] = useState([])
+  const [valueTotal, setValueTotal] = useState(0)
 
   let quantityItems = 0
-  
   if (order.length > 0) {
     quantityItems = order
       .map((item) => item.countCoffee)
       .reduce((prev, next) => prev + next)
   }
 
-  function coffeeOrder(data: coffeOrderProps) {
-    const tempOrder = order
-
-    const temp = tempOrder.filter((itemFind) => {
-      return itemFind.idCoffee !== data.idCoffee
-    })
-    if (data.countCoffee > 0) {
-      if (temp) {
-        setOrder([...temp, data])
-      } else {
-        setOrder([...order, data])
-      }
+  //Adiciona itens no Carrinho => Home
+  function addToCart(coffeSelected: coffeOrderProps) {
+    if (coffeSelected.countCoffee === 0) {
+      window.alert('Adicione uma Quantidade ao seu pedido!')
     } else {
-      setOrder([...temp])
+      const duplicate = order.find(
+        (item) => item.idCoffee == coffeSelected.idCoffee
+      )
+
+      if (duplicate) {
+        window.alert('Item já adicionado ao carrinho!')
+      } else {
+        setOrder([...order, coffeSelected])
+      }
     }
+  
   }
 
-  function calcTotalPriceCoffee() {
-    const total = itemsInCard.reduce((ac, item) => {
-      const newValue = item.countCoffee * item.price
-      return (ac += newValue)
-    }, 0)
+  //Atualiza itens do carrinho => Checkout
+  function changeQuantityCoffee(coffeSelected: coffeOrderProps) {
+    const newCart = order.map((item) => {
+      if (item.idCoffee === coffeSelected.idCoffee) {
+        return {
+          ...item,
+          countCoffee: coffeSelected.countCoffee
+        }
+      }
 
-    return total.toFixed(2)
+      return item
+    })
+
+    setOrder(newCart)
+    //Ve aqui que está errado!
+    calcValueTotal()
   }
 
-  function removeFromCard(idCoffee: number) {
-    const filteredItems = itemsInCard.filter((item) => item.idCoffee !== idCoffee)
-    console.log("id: ",filteredItems)
-    setItemsInCard(filteredItems)
+  //Remove item do Carrinho => Checkout
+  function removeCoffe(coffeSelected: coffeOrderProps) {
+    const NewList = order.filter(
+      (coffee) => coffee.idCoffee !== coffeSelected.idCoffee
+    )
+
+    setOrder(NewList)
   }
 
-  return(
+  //Valor total do pedido => Checkout
+  function calcValueTotal() {
+    let calc = 0
+
+    order.map(item => {
+      calc += item.price * item.countCoffee
+    })
+
+    setValueTotal(calc)
+  }
+
+  return (
     <OrderContext.Provider
       value={{
-        coffeeOrder,
+        addToCart,
         quantityItems,
         order,
-        calcTotalPriceCoffee,
-        removeFromCard,
+        changeQuantityCoffee,
+        removeCoffe,
+        valueTotal
       }}
     >
       {children}

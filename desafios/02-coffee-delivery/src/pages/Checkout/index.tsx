@@ -6,14 +6,10 @@ import {
   CreditCard,
   CurrencyDollar,
   MapPinLine,
-  Minus,
   Money,
-  Plus,
-  Trash
 } from 'phosphor-react'
 
 import {
-  CoffeeCount,
   ContainerLeft,
   ContainerRight,
   ContentCart,
@@ -21,11 +17,10 @@ import {
   InputContent,
   InputForm,
   InputText,
-  ItemCart,
-  ItemCartInput,
   TotalItens,
   TypePayment
 } from './styles'
+import { MiniCard } from './components/MiniCard'
 
 interface CartItemProps {
   idCoffee: number
@@ -35,37 +30,15 @@ interface CartItemProps {
   price: number
 }
 
+export function Checkout() {
+  const { order, quantityItems, valueTotal } = useContext(OrderContext)
 
-export function Checkout({idCoffee, title, countCoffee, imgUrl, price }: CartItemProps) {
-
-  const { coffeeOrder, order, quantityItems, removeFromCard } = useContext(OrderContext)
-  const [newQuantity, setNewQuantity] = useState(countCoffee)
-  const [totalItem, setTotalItem] = useState(0)
- 
+  const frete = 3.50
+  const totalItens = valueTotal
+  const total = totalItens + frete
 
   console.log(order)
   console.log(quantityItems)
-
-  function handleAddQuantity() {
-    const addedQuantity = newQuantity + 1
-
-    setNewQuantity(addedQuantity)
-  }
-
-  function handleRemoveQuantity() {
-    console.log("Entrei na function remove quantity")
-    if (newQuantity > 0) {
-      const addedQuantity = newQuantity - 1
-      setNewQuantity(addedQuantity)
-    }
-  }
-
-  function sumItens(value: number, quantity: number) {
-     
-    setTotalItem(value * quantity)
-
-    return totalItem
-  }
 
   return (
     <FormContainer>
@@ -167,48 +140,19 @@ export function Checkout({idCoffee, title, countCoffee, imgUrl, price }: CartIte
           <h3>Cafés selecionados</h3>
           <ContentCart>
             {order.map((item) => {
-              return (
-                <ItemCart key={item.idCoffee}>
-                  
-                  <img src={item.imgUrl} alt="" />
-                  <div>
-                    
-                    <p>{item.title}</p>
-                    <ItemCartInput>
-                      <CoffeeCount>
-                        <Minus
-                          size={16}
-                          className="sinal"
-                          onClick={handleRemoveQuantity}
-                        />
-
-                        <span>{item.countCoffee}</span>
-
-                        <Plus
-                          size={16}
-                          className="sinal"
-                          onClick={handleAddQuantity}
-                        />
-                      </CoffeeCount>
-                      <div 
-                        className='button-remove' 
-                        onClick={() => removeFromCard(item.idCoffee)}>
-                        <Trash 
-                          size={16} 
-                        />
-                        Remover
-                      </div>
-                    </ItemCartInput>
-                  </div>
-                  <span>{(item.price * item.countCoffee).toFixed(2)}</span>
-                  {/* <span>{sumItens(item.price, item.countCoffee)}</span> */}
-                </ItemCart>
-              )
+              return <MiniCard 
+              key={item.idCoffee}
+              idCoffee={item.idCoffee}
+              title={item.title}
+              countCoffee={item.countCoffee}
+              imgUrl={item.imgUrl}
+              price={item.price}
+              />
             })}
             <TotalItens>
               <div>
                 <p>Total de itens</p>
-                <span>R$ 29,70</span>
+                <span>R$ {totalItens.toFixed(2)} </span>
               </div>
               <div>
                 <p>Entrega</p>
@@ -216,7 +160,7 @@ export function Checkout({idCoffee, title, countCoffee, imgUrl, price }: CartIte
               </div>
               <div>
                 <h3>Total</h3>
-                <span className="totalPrice">R$ 33,20</span>
+                <span className="totalPrice">R$ {total}</span>
               </div>
               <button type="submit">Confirmar Pedido</button>
             </TotalItens>
