@@ -29,10 +29,34 @@ export const HeaderContainer = styled.header `
       background: ${props => props.theme['yellow-300']};
       color: ${props => props.theme['yellow-700']};
 
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 46px;
+      height: 42px;
+
       padding: 0.5rem;
       border-radius: 6px;
       border: 0;
       border-radius: 6px;
+
+      span {
+        /* visibility: hidden; */
+        position: absolute;
+        top: -8px;
+        right: -8px;
+
+        background: ${props => props.theme['yellow-700']};
+        font-size: 0.875rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 20px;
+        height: 20px;
+        border-radius: 999px;
+
+      }
 
       
 

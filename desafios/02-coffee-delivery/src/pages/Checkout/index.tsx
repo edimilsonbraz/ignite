@@ -27,8 +27,6 @@ import {
   TypePayment
 } from './styles'
 
-import coffee001 from '../../assets/coffees/americano.svg'
-
 interface CartItemProps {
   idCoffee: number
   title: string
@@ -194,7 +192,7 @@ export function Checkout({idCoffee, title, countCoffee, imgUrl, price }: CartIte
                       </CoffeeCount>
                       <div 
                         className='button-remove' 
-                        onClick={() => removeFromCard(idCoffee)}>
+                        onClick={() => removeFromCard(item.idCoffee)}>
                         <Trash 
                           size={16} 
                         />
