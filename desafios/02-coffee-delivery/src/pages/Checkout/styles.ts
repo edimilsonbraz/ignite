@@ -13,6 +13,7 @@ export const ContainerLeft = styled.section`
 
 export const FormContainer = styled.div`
   margin-top: 2.5rem;
+  margin-bottom: 6rem;
 
   h3 {
     margin-bottom: 1rem;

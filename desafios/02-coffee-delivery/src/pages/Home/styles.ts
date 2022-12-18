@@ -1,18 +1,26 @@
 import styled from "styled-components";
+import backgroundImg from '../../assets/bg-image.png';
 
-export const BannerContainer = styled.div`
+export const BannerContainer = styled.section`
   width: 100%;
   height: 34rem;
+  background: ${() => `url(${backgroundImg}) no-repeat center`};
+  background-size: cover;
 
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+`;
 
-  padding-top: 5.875rem;
+export const BannerContent = styled.div `
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3.5rem;
+`;
 
-  .ContentText {
-    padding-right: 3.375rem;
-  }
-
+export const ContentText = styled.div `
   h1 {
     line-height: 3.875rem;
   }
@@ -23,7 +31,7 @@ export const BannerContainer = styled.div`
     margin-top: 1rem;
     font-size: 1.125rem;
   }
-`
+`;
 
 export const IconsContent = styled.div`
   margin-top: 4.125rem;
@@ -35,8 +43,6 @@ export const IconsContent = styled.div`
   row-gap: 1.25rem;
 
   div {
-    /* margin-right: 2.5rem; */
-    
     svg {
       color: ${props => props.theme.white};
       

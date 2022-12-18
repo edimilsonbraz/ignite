@@ -136,7 +136,11 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
       formData.uf !== ''
 
       ) {
-      console.log(formData)
+      //Apagando pedido
+      localStorage.removeItem('@coffeeDelivery')
+      order.map(item => {
+        item.countCoffee = 0;
+      })
       navigate('/success')
     } else {
       alert('Preencha os campos solicitados')

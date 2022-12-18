@@ -45,7 +45,7 @@ export function Checkout() {
   const total = totalItens + frete
 
   return (
-    <FormContainer>
+    <FormContainer className='container'>
       <form action="">
         <ContainerLeft>
           <h3>Complete seu pedido</h3>

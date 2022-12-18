@@ -1,5 +1,10 @@
 import { CurrencyDollar, MapPin, Timer } from 'phosphor-react'
-import { OrderDataContainer, OrderDataContent, OrderDataIcons, OrderTitle } from './styles'
+import {
+  OrderContainer,
+  OrderDataContainer,
+  OrderDataContent,
+  OrderDataIcons,
+} from './styles'
 
 import delivery from '../../assets/delivery.svg'
 import { useContext } from 'react'
@@ -9,40 +14,48 @@ export function Success() {
   const { formData } = useContext(OrderContext)
 
   return (
-    <>
-      <OrderTitle>
-        <h2>Uhu! Pedido confirmado</h2>
-        <p>Agora é só aguardar que logo o café chegará até você</p>
-      </OrderTitle>
+    <OrderContainer className="container">
+      <h2>Uhu! Pedido confirmado</h2>
+      <p>Agora é só aguardar que logo o café chegará até você</p>
+
       <OrderDataContainer>
         <OrderDataContent>
           <OrderDataIcons>
-            <div className='brand'>
-              <MapPin size={32} weight="fill"/>
+            <div className="brand">
+              <MapPin size={32} weight="fill" />
             </div>
             <div>
               <p>
-                Entrega em <strong>{formData.rua}, {formData.numero}</strong>
+                Entrega em{' '}
+                <strong>
+                  {formData.rua}, {formData.numero}
+                </strong>
               </p>
-              <p>{formData.bairro} - {formData.cidade}, {formData.uf}</p>
+              <p>
+                {formData.bairro} - {formData.cidade}, {formData.uf}
+              </p>
             </div>
           </OrderDataIcons>
           <OrderDataIcons>
-            <div className='secondary'>
-              <Timer size={32} weight="fill"/>
+            <div className="secondary">
+              <Timer size={32} weight="fill" />
             </div>
             <div>
-              <p>Previsão de entrega  </p>
-              <p><strong>20 min - 30 min </strong> </p>
+              <p>Previsão de entrega </p>
+              <p>
+                <strong>20 min - 30 min </strong>{' '}
+              </p>
             </div>
           </OrderDataIcons>
           <OrderDataIcons>
-            <div className='primary'>
-              <CurrencyDollar size={32} weight="fill"/>
+            <div className="primary">
+              <CurrencyDollar size={32} weight="fill" />
             </div>
             <div>
               <p>Pagamento na entrega</p>
-              <p><strong>{formData.pagamento}</strong></p>
+              <p>
+                <strong>{formData.pagamento}</strong>
+              </p>
             </div>
           </OrderDataIcons>
         </OrderDataContent>
@@ -50,6 +63,6 @@ export function Success() {
           <img src={delivery} alt="" />
         </div>
       </OrderDataContainer>
-    </>
+    </OrderContainer>
   )
 }

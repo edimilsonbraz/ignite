@@ -21,7 +21,7 @@ export const coffeItem = [
     description: 'O tradicional café feito com água quente e grãos moídos',
     imgUrl: `${expresso}`,
     tags: ['Tradicional'],
-    price: 6.5
+    price: 6.50
   },
   {
     id: 2,
@@ -37,7 +37,7 @@ export const coffeItem = [
     description: 'Café expresso tradicional com espuma cremosa',
     imgUrl: `${expressoCremoso}`,
     tags: ['Tracidional'],
-    price: 8.9
+    price: 8.90
   },
   {
     id: 4,
@@ -45,7 +45,7 @@ export const coffeItem = [
     description: 'Bebida preparada com café expresso e cubos de gelo',
     imgUrl: `${expressoGelado}`,
     tags: ['Tradicional', 'Gelado'],
-    price: 5.5
+    price: 5.50
   },
   {
     id: 5,
@@ -53,7 +53,7 @@ export const coffeItem = [
     description: 'Meio a meio de expresso tradicional com leite vaporizado',
     imgUrl: `${cafeComLeite}`,
     tags: ['Tradicional', 'Com leite'],
-    price: 7.5
+    price: 7.50
   },
   {
     id: 6,
@@ -69,7 +69,7 @@ export const coffeItem = [
     description: 'Bebida com canela feita de doses iguais de café, leite e espuma',
     imgUrl: `${capuccino}`,
     tags: ['Tradicional', 'Com leite'],
-    price: 8.5
+    price: 8.50
   },
   {
     id: 8,
@@ -78,7 +78,7 @@ export const coffeItem = [
       'Café expresso misturado com um pouco de leite quente e espuma',
     imgUrl: `${macchiato}`,
     tags: ['Tradicional', 'Com leite'],
-    price: 8.9
+    price: 8.90
   },
   {
     id: 9,
@@ -86,7 +86,7 @@ export const coffeItem = [
     description: 'Café expresso com calda de chocolate, pouco leite e espuma',
     imgUrl: `${mocaccino}`,
     tags: ['Tradicional', 'Com Leite'],
-    price: 8.9
+    price: 8.90
   },
   {
     id: 10,
@@ -94,7 +94,7 @@ export const coffeItem = [
     description: 'Bebida feita com chocolate dissolvido no leite quente e café',
     imgUrl: `${chocolateQuente}`,
     tags: ['Especial', 'Com Leite'],
-    price: 9.9
+    price: 9.90
   },
   {
     id: 11,
@@ -102,7 +102,7 @@ export const coffeItem = [
     description: 'Drink gelado de café expresso com rum, creme de leite e hortelã',
     imgUrl: `${cubano}`,
     tags: ['Especial', 'Alcoólico', 'Gelado'],
-    price: 9.9
+    price: 9.90
   },
   {
     id: 12,
@@ -110,7 +110,7 @@ export const coffeItem = [
     description: 'Bebida adocicada preparada com café e leite de coco',
     imgUrl: `${havaiano}`,
     tags: ['Especial'],
-    price: 9.9
+    price: 9.90
   },
   {
     id: 13,
@@ -118,7 +118,7 @@ export const coffeItem = [
     description: 'Bebida preparada com grãos de café árabe e especiarias',
     imgUrl: `${arabe}`,
     tags: ['Especial'],
-    price: 9.9
+    price: 9.90
   },
   {
     id: 14,
@@ -126,6 +126,6 @@ export const coffeItem = [
     description: 'Bebida a base de café, uísque irlandês, açúcar e chantilly',
     imgUrl: `${irlandes}`,
     tags: ['Especial', 'Alcoólico'],
-    price: 9.9
+    price: 9.90
   }
 ]
