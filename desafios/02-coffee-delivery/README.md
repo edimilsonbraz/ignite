@@ -1,6 +1,6 @@
 # Desafio 02 - Coffee Delivery 
 <h1 align="center">
-  <img alt="Coffee" src="./src/assets/coffeeDelivery.png" width="900px;"/>
+  <img alt="Coffee" src="./src/assets/coffeeDelivery.png" align="center" style="max-width: 100%;"/>
 </h1>
 <br>
 
