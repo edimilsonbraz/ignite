@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface coffeOrderProps {
@@ -39,8 +39,19 @@ interface OrderContextProviderProps {
   children: ReactNode
 }
 
+const SAVE_IN_STORAGE = "@coffeeDelivery";
+
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
-  const [order, setOrder] = useState<coffeOrderProps[]>([])
+  const navigate = useNavigate();
+
+  const [order, setOrder] = useState<coffeOrderProps[]>(()=> {
+    const storageCoffeeItens = localStorage.getItem(SAVE_IN_STORAGE);
+    if(storageCoffeeItens) {
+      return JSON.parse(storageCoffeeItens)
+    }
+    return [];
+  })
+
   const [formData, setFormData] = useState({
     cep: '',
     rua: '',
@@ -52,7 +63,11 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     pagamento: ''
   })
 
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem(SAVE_IN_STORAGE, JSON.stringify(order))
+  }, [order])
+
 
   let quantityItems = 0
   if (order.length > 0) {
