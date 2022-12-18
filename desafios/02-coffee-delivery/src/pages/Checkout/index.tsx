@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { OrderContext } from '../../contexts/OrderContext'
 
 import {
@@ -6,7 +6,7 @@ import {
   CreditCard,
   CurrencyDollar,
   MapPinLine,
-  Money,
+  Money
 } from 'phosphor-react'
 
 import {
@@ -31,14 +31,18 @@ interface CartItemProps {
 }
 
 export function Checkout() {
-  const { order, quantityItems, valueTotal } = useContext(OrderContext)
+  const {
+    order,
+    quantityItems,
+    calcPriceTotal,
+    formData,
+    setFormData,
+    submitForm
+  } = useContext(OrderContext)
 
-  const frete = 3.50
-  const totalItens = valueTotal
+  const frete = 3.5
+  const totalItens = calcPriceTotal
   const total = totalItens + frete
-
-  console.log(order)
-  console.log(quantityItems)
 
   return (
     <FormContainer>
@@ -60,6 +64,10 @@ export function Checkout() {
                   type="text"
                   name="cep"
                   placeholder="CEP"
+                  required
+                  onChange={(e) =>
+                    setFormData({ ...formData, cep: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -68,6 +76,10 @@ export function Checkout() {
                   type="text"
                   name="rua"
                   placeholder="Rua"
+                  required
+                  onChange={(e) =>
+                    setFormData({ ...formData, rua: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -76,12 +88,20 @@ export function Checkout() {
                   type="text"
                   name="numero"
                   placeholder="Numero"
+                  required
+                  onChange={(e) =>
+                    setFormData({ ...formData, numero: e.target.value })
+                  }
                 />
                 <input
                   className="four"
                   type="text"
                   name="complemento"
                   placeholder="Complemento Opcional"
+                  required
+                  onChange={(e) =>
+                    setFormData({ ...formData, complemento: e.target.value })
+                  }
                 />
               </div>
               <div>
@@ -90,18 +110,30 @@ export function Checkout() {
                   type="text"
                   name="bairro"
                   placeholder="Bairro"
+                  required
+                  onChange={(e) =>
+                    setFormData({ ...formData, bairro: e.target.value })
+                  }
                 />
                 <input
                   className="six"
                   type="text"
                   name="cidade"
                   placeholder="Cidade"
+                  required
+                  onChange={(e) =>
+                    setFormData({ ...formData, cidade: e.target.value })
+                  }
                 />
                 <input
                   className="seven"
                   type="text"
-                  name="placeholder"
+                  name="uf"
                   placeholder="UF"
+                  required
+                  onChange={(e) =>
+                    setFormData({ ...formData, uf: e.target.value })
+                  }
                 />
               </div>
             </InputContent>
@@ -120,15 +152,34 @@ export function Checkout() {
             </div>
 
             <div className="paymentCart">
-              <button value="cartaoCredito">
+              <button
+                type="button"
+                value="Cartão de crédito "
+                onClick={(e) =>
+                  setFormData({ ...formData, pagamento: e.currentTarget.value })
+                }
+              >
                 <CreditCard size={18} />
                 Cartão de crédito
               </button>
-              <button value="cartaoDebito">
+
+              <button
+                type="button"
+                value="Cartão de débito"
+                onClick={(e) =>
+                  setFormData({ ...formData, pagamento: e.currentTarget.value })
+                }
+              >
                 <Bank size={18} />
                 Cartão de débito
               </button>
-              <button value="debito">
+              <button
+                type="button"
+                value="Dinheiro"
+                onClick={(e) =>
+                  setFormData({ ...formData, pagamento: e.currentTarget.value })
+                }
+              >
                 <Money size={18} />
                 Dinheiro
               </button>
@@ -140,14 +191,16 @@ export function Checkout() {
           <h3>Cafés selecionados</h3>
           <ContentCart>
             {order.map((item) => {
-              return <MiniCard 
-              key={item.idCoffee}
-              idCoffee={item.idCoffee}
-              title={item.title}
-              countCoffee={item.countCoffee}
-              imgUrl={item.imgUrl}
-              price={item.price}
-              />
+              return (
+                <MiniCard
+                  key={item.idCoffee}
+                  idCoffee={item.idCoffee}
+                  title={item.title}
+                  countCoffee={item.countCoffee}
+                  imgUrl={item.imgUrl}
+                  price={item.price}
+                />
+              )
             })}
             <TotalItens>
               <div>
@@ -160,9 +213,11 @@ export function Checkout() {
               </div>
               <div>
                 <h3>Total</h3>
-                <span className="totalPrice">R$ {total}</span>
+                <span className="totalPrice">R$ {total.toFixed(2)}</span>
               </div>
-              <button type="submit">Confirmar Pedido</button>
+              <button onClick={submitForm} disabled={quantityItems <= 0}>
+                Confirmar Pedido
+              </button>
             </TotalItens>
           </ContentCart>
         </ContainerRight>

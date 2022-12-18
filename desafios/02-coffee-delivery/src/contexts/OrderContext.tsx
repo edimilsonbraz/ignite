@@ -1,4 +1,5 @@
 import { createContext, ReactNode, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface coffeOrderProps {
   idCoffee: number
@@ -8,11 +9,25 @@ interface coffeOrderProps {
   price: number
 }
 
+interface FormData {
+  cep: string
+  rua: string
+  numero: string
+  complemento: string
+  bairro: string
+  cidade: string
+  uf: string
+  pagamento: string
+}
+
 interface OrderContextData {
   addToCart: (newState: coffeOrderProps) => void
   order: coffeOrderProps[]
   quantityItems: number
-  valueTotal: number
+  formData: FormData
+  calcPriceTotal: number
+  setFormData: (newState: FormData) => void
+  submitForm: (e: React.MouseEvent<HTMLElement>) => void,
   changeQuantityCoffee: (newState: coffeOrderProps) => void
   removeCoffe: (newState: coffeOrderProps) => void
 }
@@ -26,7 +41,18 @@ interface OrderContextProviderProps {
 
 export function OrderContextProvider({ children }: OrderContextProviderProps) {
   const [order, setOrder] = useState<coffeOrderProps[]>([])
-  const [valueTotal, setValueTotal] = useState(0)
+  const [formData, setFormData] = useState({
+    cep: '',
+    rua: '',
+    numero: '',
+    complemento: '',
+    bairro: '',
+    cidade: '',
+    uf: '',
+    pagamento: ''
+  })
+
+  const navigate = useNavigate();
 
   let quantityItems = 0
   if (order.length > 0) {
@@ -50,7 +76,6 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
         setOrder([...order, coffeSelected])
       }
     }
-  
   }
 
   //Atualiza itens do carrinho => Checkout
@@ -67,8 +92,7 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
     })
 
     setOrder(newCart)
-    //Ve aqui que está errado!
-    calcValueTotal()
+
   }
 
   //Remove item do Carrinho => Checkout
@@ -81,14 +105,27 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
   }
 
   //Valor total do pedido => Checkout
-  function calcValueTotal() {
-    let calc = 0
+  const  calcPriceTotal = order.reduce((total, coffeItem) => {
+    return total + coffeItem.price * coffeItem.countCoffee
+  },0);
+  
+  
+  function submitForm(event: React.MouseEvent<HTMLElement> ) {
+    event.preventDefault()
+   
+    if (
+      formData.cep  !== '' ||
+      formData.rua  !== '' ||
+      formData.bairro !== '' ||
+      formData.cidade  !== '' ||
+      formData.uf !== ''
 
-    order.map(item => {
-      calc += item.price * item.countCoffee
-    })
-
-    setValueTotal(calc)
+      ) {
+      console.log(formData)
+      navigate('/success')
+    } else {
+      alert('Preencha os campos solicitados')
+    }
   }
 
   return (
@@ -99,7 +136,10 @@ export function OrderContextProvider({ children }: OrderContextProviderProps) {
         order,
         changeQuantityCoffee,
         removeCoffe,
-        valueTotal
+        calcPriceTotal,
+        formData,
+        setFormData,
+        submitForm
       }}
     >
       {children}

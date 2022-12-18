@@ -46,7 +46,7 @@ export const HeaderContainer = styled.header `
         position: absolute;
         top: -8px;
         right: -8px;
-
+        color: ${props => props.theme.white};
         background: ${props => props.theme['yellow-700']};
         font-size: 0.875rem;
         display: flex;

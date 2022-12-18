@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { OrderContext } from '../../../../contexts/OrderContext'
 
 import { Minus, Plus, Trash } from 'phosphor-react'
@@ -20,7 +20,7 @@ export function MiniCard({
   imgUrl,
   price
 }: CartItemProps) {
-  const { changeQuantityCoffee, removeCoffe } = useContext(OrderContext)
+  const { changeQuantityCoffee, removeCoffe, calcPriceTotal } = useContext(OrderContext)
 
   const [newQuantity, setNewQuantity] = useState(countCoffee)
   const [newValue, setNewValue] = useState(price * countCoffee)
