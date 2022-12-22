@@ -11,7 +11,7 @@ import {
   Content,
   Overlay,
   TransactionType,
-  TransactionTypeButton
+  TransactionTypeButton,
 } from './styles'
 
 const newTransactionFormSchema = z.object({
@@ -24,22 +24,22 @@ const newTransactionFormSchema = z.object({
 type NewTransactionFormInputs = z.infer<typeof newTransactionFormSchema>
 
 export function NewTransactionModal() {
-  const { createTransaction } = useContext(TransactionsContext);
+  const { createTransaction } = useContext(TransactionsContext)
   const {
     control,
     register,
     reset,
     handleSubmit,
-    formState: { isSubmitting }
+    formState: { isSubmitting },
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
     defaultValues: {
-      type: 'income'
-    }
+      type: 'income',
+    },
   })
 
   async function handleCreateNewTransaction(data: NewTransactionFormInputs) {
-    const { description, price, category, type } = data;
+    const { description, price, category, type } = data
 
     await createTransaction({
       description,
@@ -47,8 +47,8 @@ export function NewTransactionModal() {
       category,
       type,
     })
-    
-    reset();
+
+    reset()
   }
 
   return (
@@ -81,13 +81,13 @@ export function NewTransactionModal() {
             {...register('category')}
           />
 
-          <Controller 
+          <Controller
             control={control}
             name="type"
-            render={({ field })=> {
+            render={({ field }) => {
               return (
-                <TransactionType 
-                  onValueChange={field.onChange} 
+                <TransactionType
+                  onValueChange={field.onChange}
                   value={field.value}
                 >
                   <TransactionTypeButton variant="income" value="income">
@@ -104,7 +104,6 @@ export function NewTransactionModal() {
             }}
           />
 
-          
           <button type="submit" disabled={isSubmitting}>
             Cadastrar
           </button>
