@@ -39,6 +39,14 @@
       "type": "outcome",
       "createdAt": "2022-12-22T17:52:57.486Z",
       "id": 5
+    },
+    {
+      "description": "comprando guitarra",
+      "category": "musica",
+      "price": 7600,
+      "type": "outcome",
+      "createdAt": "2022-12-23T12:49:05.070Z",
+      "id": 6
     }
   ]
 }
