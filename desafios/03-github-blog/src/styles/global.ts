@@ -22,7 +22,15 @@ export const GlobalStyle = createGlobalStyle`
     font: 400 1rem 'Nunito', sans-serif;
   }
 
+  span {
+    color: ${props => props.theme['base-span']};
+  }
+
   h1 {
     font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
   }
 `
