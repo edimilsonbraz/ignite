@@ -9,7 +9,7 @@ export const ProfileContainer = styled.div`
   gap: 2rem;
 
   margin-top: -6rem;
-
+  margin-bottom: 4.5rem;
   img {
     width: 148px;
     height: 148px;
