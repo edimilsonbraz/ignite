@@ -23,15 +23,15 @@ export function Profile() {
 
         <IconsContent>
           <span>
-            <FaGithub width={24}/>
+            <FaGithub size={19}/>
             edimilsonbraz
           </span>
           <span>
-            <FaBuilding />
+            <FaBuilding size={19}/>
             Rocketseat
           </span>
           <span>
-            <FaUserFriends />
+            <FaUserFriends size={20}/>
             32 seguidores
           </span>
         </IconsContent>

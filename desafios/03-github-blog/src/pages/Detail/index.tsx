@@ -1,8 +1,11 @@
+import { PostDetail } from "./components/PostDetail";
+import { PostInfo } from "./components/PostInfo";
 
 export function Detail() {
   return (
-    <div>
-      <h1>Page Detail</h1>
-    </div>
+    <>
+      <PostInfo />
+      <PostDetail />
+    </>
   )
 }

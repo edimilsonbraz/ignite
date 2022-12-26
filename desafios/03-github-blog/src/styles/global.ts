@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 
   :focus {
     outline: 0;
-    box-shadow: 0 0 0 2px ${props => props.theme['base-input']};
+    box-shadow: 0 0 0 1px ${props => props.theme.blue};
   }
 
   body {
@@ -24,7 +24,7 @@ export const GlobalStyle = createGlobalStyle`
 
   span {
     color: ${props => props.theme['base-span']};
-  }
+  }   
 
   h1 {
     font-size: 1.5rem;
