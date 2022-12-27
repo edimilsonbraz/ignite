@@ -30,7 +30,7 @@ export function CardPost() {
       setIssues(dataUssues)
       console.log(dataUssues)
     } catch (error) {
-      // alert('Erro ao buscar issues: ' + error)
+      alert('Erro ao buscar issues: ' + error)
     }
   }
 

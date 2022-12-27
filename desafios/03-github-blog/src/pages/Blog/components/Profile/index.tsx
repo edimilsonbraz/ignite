@@ -7,7 +7,7 @@ import {
   IconsContent,
   ProfileContainer,
   ProfileContent,
-  ProfileTitle,
+  ProfileTitle
 } from './styles'
 
 interface ProfileProps {
@@ -20,26 +20,34 @@ interface ProfileProps {
 }
 
 export function Profile() {
-  const [user, setUser] = useState<ProfileProps>([]);
- 
+  const [user, setUser] = useState<ProfileProps>({
+    name: '',
+    avatar_url: '',
+    login: '',
+    bio: '',
+    followers: 0,
+    html_url: ''
+  })
+
   useEffect(() => {
     getDataProfile()
   }, [])
 
   async function getDataProfile() {
     try {
-      const response = await axios.get("https://api.github.com/users/edimilsonbraz");
-      const data = await response.data;
+      const response = await axios.get(
+        'https://api.github.com/users/edimilsonbraz'
+      )
+      const data = await response.data
       setUser(data)
       // console.log(user)
     } catch (error) {
-      alert("Erro ao buscar dados do usuário" + error)
+      alert('Erro ao buscar dados do usuário' + error)
     }
   }
 
   return (
     <ProfileContainer className="container">
-      
       <img src={user.avatar_url} alt="Foto Github" />
 
       <ProfileContent>
