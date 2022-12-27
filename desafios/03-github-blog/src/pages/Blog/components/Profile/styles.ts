@@ -39,8 +39,11 @@ export const GitLink = styled.a`
 
 export const ProfileContent = styled.div`
   p {
+    width: 100%;
+    margin-top: 2rem;
     margin-bottom: 1.5rem;
     line-height: 25.6px;
+    padding-right: 12rem;
   }
 `
 

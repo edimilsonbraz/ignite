@@ -1,38 +1,68 @@
-import { GitLink, IconsContent, ProfileContainer, ProfileContent, ProfileTitle } from './styles'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 import { FaBuilding, FaGithub, FaUserFriends } from 'react-icons/fa'
 import { FiExternalLink } from 'react-icons/fi'
+import {
+  GitLink,
+  IconsContent,
+  ProfileContainer,
+  ProfileContent,
+  ProfileTitle
+} from './styles'
+
+interface ProfileProps {
+  name: string
+  avatar_url: string
+  login: string
+  bio: string
+  followers: number
+}
 
 export function Profile() {
+  const [user, setUser] = useState<ProfileProps>([]);
+ 
+  useEffect(() => {
+    getDataProfile()
+  }, [])
+
+  async function getDataProfile() {
+    try {
+      const response = await axios.get("https://api.github.com/users/edimilsonbraz");
+      const data = await response.data;
+      setUser(data)
+      // console.log(user)
+    } catch (error) {
+      alert("Erro ao buscar dados do usuário" + error)
+    }
+  }
+
   return (
     <ProfileContainer className="container">
-      <img src="https://avatars.githubusercontent.com/u/65040481?v=4" alt="" />
+      
+      <img src={user.avatar_url} alt="Foto Github" />
 
       <ProfileContent>
         <ProfileTitle>
-          <h1>Edimilson Braz</h1>
-          <GitLink href='https://github.com/edimilsonbraz'>
+          <h1>{user.name}</h1>
+          <GitLink href="https://github.com/edimilsonbraz" target="_blank">
             Github
             <FiExternalLink />
           </GitLink>
         </ProfileTitle>
-        <p>
-          Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-          viverra massa quam dignissim aenean malesuada suscipit. Nunc, volutpat
-          pulvinar vel mass.
-        </p>
+        <p>{user.bio}</p>
 
         <IconsContent>
           <span>
-            <FaGithub size={19}/>
-            edimilsonbraz
+            <FaGithub size={19} />
+            {user.login}
           </span>
           <span>
-            <FaBuilding size={19}/>
+            <FaBuilding size={19} />
             Rocketseat
           </span>
           <span>
-            <FaUserFriends size={20}/>
-            32 seguidores
+            <FaUserFriends size={20} />
+            {user.followers} seguidores
           </span>
         </IconsContent>
       </ProfileContent>
