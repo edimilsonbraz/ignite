@@ -5,7 +5,7 @@ export const CardContainer = styled.section`
   gap: 2rem;
 
   margin-bottom: 6rem;
-`;
+`
 
 export const CardContent = styled.a`
   background: ${(props) => props.theme['base-post']};
@@ -19,10 +19,13 @@ export const CardContent = styled.a`
     border: 2px solid ${(props) => props.theme['base-label']};
   }
 
-  p {
+  .paragrath {
     line-height: 25.6px;
+    max-height: 180px; // Limite maximo do texto
+    overflow: hidden; // Removendo a barra de rolagem
+    text-overflow: ellipsis; // Adicionando "..." ao final do texto
   }
-`;
+`
 
 export const CardTitle = styled.div`
   display: flex;
@@ -38,4 +41,4 @@ export const CardTitle = styled.div`
   span {
     font-size: 0.875rem;
   }
-`;
+`

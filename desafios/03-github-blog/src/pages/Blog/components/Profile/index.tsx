@@ -7,7 +7,7 @@ import {
   IconsContent,
   ProfileContainer,
   ProfileContent,
-  ProfileTitle
+  ProfileTitle,
 } from './styles'
 
 interface ProfileProps {
@@ -16,6 +16,7 @@ interface ProfileProps {
   login: string
   bio: string
   followers: number
+  html_url: string
 }
 
 export function Profile() {
@@ -44,7 +45,7 @@ export function Profile() {
       <ProfileContent>
         <ProfileTitle>
           <h1>{user.name}</h1>
-          <GitLink href="https://github.com/edimilsonbraz" target="_blank">
+          <GitLink href={user.html_url} target="_blank">
             Github
             <FiExternalLink />
           </GitLink>
