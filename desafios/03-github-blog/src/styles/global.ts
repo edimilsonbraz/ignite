@@ -24,7 +24,11 @@ export const GlobalStyle = createGlobalStyle`
 
   span {
     color: ${props => props.theme['base-span']};
-  }   
+  }
+  
+  a {
+    text-decoration: none;
+  }
 
   h1 {
     font-size: 1.5rem;

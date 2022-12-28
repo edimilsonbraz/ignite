@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const PostInfoContainer = styled.div`
   background: ${(props) => props.theme['base-profile']};
@@ -28,6 +28,7 @@ export const HeaderLinksIcons = styled.a`
   color: ${(props) => props.theme.blue};
   text-decoration: none;
   transition: .4s;
+  cursor: pointer;
 
   &:hover::after {
     position: absolute;
