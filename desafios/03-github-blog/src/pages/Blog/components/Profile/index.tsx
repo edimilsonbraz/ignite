@@ -15,6 +15,7 @@ interface ProfileProps {
   avatar_url: string
   login: string
   bio: string
+  location: string
   followers: number
   html_url: string
 }
@@ -25,6 +26,7 @@ export function Profile() {
     avatar_url: '',
     login: '',
     bio: '',
+    location: '',
     followers: 0,
     html_url: ''
   })
@@ -40,7 +42,7 @@ export function Profile() {
       )
       const data = await response.data
       setUser(data)
-      // console.log(user)
+      console.log(data)
     } catch (error) {
       alert('Erro ao buscar dados do usuário' + error)
     }
@@ -67,7 +69,7 @@ export function Profile() {
           </span>
           <span>
             <FaBuilding size={19} />
-            Rocketseat
+            {user.location}
           </span>
           <span>
             <FaUserFriends size={20} />

@@ -1,7 +1,12 @@
 import { Profile } from './components/Profile'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
+import * as z from 'zod'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+
 import {
   BlogContainer,
   CardContainer,
@@ -10,8 +15,6 @@ import {
   SearchFormContainer,
   SearchFormText
 } from './styles'
-import { Link } from 'react-router-dom'
-import { formattedDate } from '../../utils/formatter'
 
 export interface IssuesProps {
   title: string
@@ -20,26 +23,37 @@ export interface IssuesProps {
   created_at: string
 }
 
+const searchFormSchema = z.object({
+  query: z.string()
+})
+
+type SearchFormInput = z.infer<typeof searchFormSchema>
+
 export function Blog() {
+  const { register, handleSubmit } = useForm<SearchFormInput>({
+    resolver: zodResolver(searchFormSchema)
+  })
+
+  async function handleSearchIssues(data: SearchFormInput) {
+    await getIssues(data.query)
+  }
+
   const [issues, setIssues] = useState<IssuesProps[]>([])
 
   //Formatando data
   // const publishedDateFormatted = formattedDate(issues)
 
   useEffect(() => {
-    getAllIssues()
+    getIssues()
   }, [])
 
-  async function getAllIssues() {
+  async function getIssues(query: string = "") {
     try {
-      const response = await axios.get('https://api.github.com/search/issues', {
-        params: {
-          q: 'repo:edimilsonbraz/ignite'
-        }
-      })
-      const dataIssues = response.data.items
-      setIssues(dataIssues)
+      const response = await axios.get(`https://api.github.com/search/issues?q=${query}%20repo:edimilsonbraz/ignite`);
 
+      const dataIssues = response.data.items
+     
+      setIssues(dataIssues)
     } catch (error) {
       alert('Erro ao buscar issues: ' + error)
     }
@@ -49,7 +63,10 @@ export function Blog() {
     <BlogContainer>
       <Profile />
 
-      <SearchFormContainer className="container">
+      <SearchFormContainer
+        className="container"
+        onSubmit={handleSubmit(handleSearchIssues)}
+      >
         <SearchFormText>
           <h3>Publicações</h3>
           <span>{issues.length} publicações</span>
@@ -58,7 +75,7 @@ export function Blog() {
         <input
           type="text"
           placeholder="Buscar conteúdo"
-          // {...register('query')}
+          {...register('query')}
         />
       </SearchFormContainer>
 
