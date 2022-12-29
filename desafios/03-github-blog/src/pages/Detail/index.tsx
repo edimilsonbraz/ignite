@@ -6,6 +6,9 @@ import { FiExternalLink } from 'react-icons/fi'
 import { FaAngleLeft, FaCalendarDay, FaComment, FaGithub } from 'react-icons/fa'
 import { PostDetail } from "./components/PostDetail";
 import { FooterIcons, HeaderLinks, HeaderLinksIcons, PostInfoContainer } from './styles'
+import { formattedDate } from '../../utils/formatter'
+
+
 
 export interface PostProps {
   title: string
@@ -27,7 +30,9 @@ export function Detail() {
     user: { login: '' },
     body: ''
   })
-
+  //Formatando data
+  const publishedDateFormatted = formattedDate(post.created_at)
+  
   useEffect(() => {
     getPost()
   }, [])
@@ -67,7 +72,7 @@ export function Detail() {
           </span>
           <span>
             <FaCalendarDay />
-            Há {post.created_at} dia
+            {publishedDateFormatted}
           </span>
           <span>
             <FaComment />{post.comments} comentários

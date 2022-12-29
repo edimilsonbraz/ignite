@@ -11,15 +11,20 @@ import {
   SearchFormText
 } from './styles'
 import { Link } from 'react-router-dom'
+import { formattedDate } from '../../utils/formatter'
 
 export interface IssuesProps {
   title: string
   body: string
   number: number
+  created_at: string
 }
 
 export function Blog() {
   const [issues, setIssues] = useState<IssuesProps[]>([])
+
+  //Formatando data
+  // const publishedDateFormatted = formattedDate(issues)
 
   useEffect(() => {
     getAllIssues()
@@ -34,7 +39,7 @@ export function Blog() {
       })
       const dataIssues = response.data.items
       setIssues(dataIssues)
-      console.log(issues.length)
+
     } catch (error) {
       alert('Erro ao buscar issues: ' + error)
     }
