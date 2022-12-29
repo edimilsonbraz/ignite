@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import axios from 'axios'
 import { FaBuilding, FaGithub, FaUserFriends } from 'react-icons/fa'
 import { FiExternalLink } from 'react-icons/fi'
 import {
@@ -9,6 +8,7 @@ import {
   ProfileContent,
   ProfileTitle
 } from './styles'
+import { api } from '../../../../lib/api'
 
 interface ProfileProps {
   name: string
@@ -21,15 +21,7 @@ interface ProfileProps {
 }
 
 export function Profile() {
-  const [user, setUser] = useState<ProfileProps>({
-    name: '',
-    avatar_url: '',
-    login: '',
-    bio: '',
-    location: '',
-    followers: 0,
-    html_url: ''
-  })
+  const [user, setUser] = useState<ProfileProps>({} as ProfileProps)
 
   useEffect(() => {
     getDataProfile()
@@ -37,12 +29,8 @@ export function Profile() {
 
   async function getDataProfile() {
     try {
-      const response = await axios.get(
-        'https://api.github.com/users/edimilsonbraz'
-      )
-      const data = await response.data
-      setUser(data)
-      console.log(data)
+      const response = await api.get('/users/edimilsonbraz')
+      setUser(response.data)
     } catch (error) {
       alert('Erro ao buscar dados do usuário' + error)
     }

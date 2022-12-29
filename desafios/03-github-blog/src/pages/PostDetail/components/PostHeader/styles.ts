@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const PostInfoContainer = styled.div`
+export const PostHeaderContainer = styled.section`
   background: ${(props) => props.theme['base-profile']};
   border-radius: 10px;
   padding: 2rem;
@@ -11,7 +11,8 @@ export const PostInfoContainer = styled.div`
     color: ${(props) => props.theme['base-title']};
     margin-bottom: 0.875rem;
   }
-`
+`;
+
 
 export const HeaderLinks = styled.div`
   display: flex;
@@ -45,8 +46,6 @@ export const HeaderLinksIcons = styled.a`
     text-transform: uppercase;
     font-size: 0.85rem;
   }
-
-  
 `
 
 export const FooterIcons = styled.div`
