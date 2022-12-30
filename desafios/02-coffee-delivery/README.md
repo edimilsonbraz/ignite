@@ -1,12 +1,13 @@
 # Desafio 02 - Coffee Delivery 
 <h1 align="center">
-  <img alt="Coffee" src="./src/assets/coffeeDelivery.png" align="center" style="max-width: 100%;"/>
+  <img alt="Coffee" src="./src/assets/coffee-delivery.gif" align="center" style="max-width: 100%;"/>
 </h1>
 <br>
 
-## Sobre o desafio:
-Nesse desafio, você foi desenvolvido uma aplicação para gerenciar um carrinho de compras de uma cafeteria fictícia, que contém as seguintes funcionalidades:
+## :point_right: Sobre o desafio:
+Nesse desafio, foi desenvolvido uma aplicação para gerenciar um carrinho de compras de uma cafeteria fictícia, que contém as seguintes funcionalidades:
 
+## :point_right: Desafio proposto:
 - Listagem de produtos (cafés) disponíveis para compra
 - Adicionar uma quantidade específicas de itens no carrinho
 - Aumentar ou remover a quantidade de itens no carrinho
@@ -14,7 +15,7 @@ Nesse desafio, você foi desenvolvido uma aplicação para gerenciar um carrinho
 - Exibir o total de itens no carrinho no Header
 - Exibir o valor total da soma de itens no carrinho multiplicados pelo valor
 
-## Conteúdo utilizado nesse projeto:
+## :point_right: Conteúdo utilizado nesse projeto:
 - ⚛️ Vite
 - ⚛️ Styled Components
 - ⚛️ Local Storage
