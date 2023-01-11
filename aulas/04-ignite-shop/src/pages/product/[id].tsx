@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import Stripe from 'stripe'
@@ -12,67 +13,78 @@ import {
 
 interface ProductProps {
   product: {
-    id: string;
-    name: string;
-    imageUrl: string;
-    price: string;
-    description: string;
-    defaultPriceId: string;
+    id: string
+    name: string
+    imageUrl: string
+    price: string
+    description: string
+    defaultPriceId: string
   }
 }
 
-export default function Product({product}: ProductProps) {
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] = useState(false)
+export default function Product({ product }: ProductProps) {
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false)
 
   async function handleBuyProduct() {
     try {
-      setIsCreatingCheckoutSession(true);
+      setIsCreatingCheckoutSession(true)
 
       const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId,
+        priceId: product.defaultPriceId
       })
 
-      const { checkoutUrl } = response.data;
+      const { checkoutUrl } = response.data
 
       window.location.href = checkoutUrl
     } catch (error) {
       //Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
-      setIsCreatingCheckoutSession(false);
+      setIsCreatingCheckoutSession(false)
 
       alert('Falha ao redirecionar ao checkout!')
     }
   }
 
   return (
-    <ProductContainer>
-      <ImageContainer>
-        <Image src={product.imageUrl} width={520} height={480} alt="" />
-      </ImageContainer>
+    <>
+      <Head>
+        <title>{product.name} | Ignite Shop</title>
+      </Head>
 
-      <ProductDetails>
-        <h1>{product.name}</h1>
-        <span>{product.price}</span>
+      <ProductContainer>
+        <ImageContainer>
+          <Image src={product.imageUrl} width={520} height={480} alt="" />
+        </ImageContainer>
 
-        <p>{product.description}</p>
+        <ProductDetails>
+          <h1>{product.name}</h1>
+          <span>{product.price}</span>
 
-        <button disabled={isCreatingCheckoutSession} onClick={handleBuyProduct}>Comprar agora</button>
-      </ProductDetails>
-    </ProductContainer>
+          <p>{product.description}</p>
+
+          <button
+            disabled={isCreatingCheckoutSession}
+            onClick={handleBuyProduct}
+          >
+            Comprar agora
+          </button>
+        </ProductDetails>
+      </ProductContainer>
+    </>
   )
 }
 
 export const getStaticPaths = async () => {
   return {
-    paths: [
-      {params: { id: 'prod_N7CvzqR56JHbE8'}}
-    ],
-    fallback: true,
+    paths: [{ params: { id: 'prod_N7CvzqR56JHbE8' } }],
+    fallback: true
   }
 }
 
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
-  params }) => {
-  const productId = params!.id;
+  params
+}) => {
+  const productId = params!.id
 
   //Buscando os dados do Product
   const product = await stripe.products.retrieve(productId, {
@@ -92,7 +104,7 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
           currency: 'BRL'
         }).format(price.unit_amount! / 100),
         description: product.description,
-        defaultPriceId: price.id,
+        defaultPriceId: price.id
       }
     },
     revalidate: 60 * 60 * 1 // 1hour
