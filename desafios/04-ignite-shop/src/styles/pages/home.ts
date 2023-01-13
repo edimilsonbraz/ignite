@@ -42,17 +42,30 @@ export const Product = styled('div', {
     transform: 'translatey(110%)',
     opacity: 0,
     transition: 'all 0.2s ease-in-out',
+    
+    div: {
+      strong: {
+        display: 'block',
+        fontSize: '$$lg',
+        color: '$gray100',
+        marginBottom: '0.75rem',
+      },
 
-    strong: {
-      fontSize: '$$lg',
-      color: '$gray100',
+      span: {
+        fontSize: '$xl',
+        fontWeight: 'bold',
+        color: '$green300',
+      },
     },
 
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green300',
+    svg: {
+      width: 56,
+      height: 56,
+      padding: '0.75rem',
+      borderRadius: 6,
+      background: '$green500',
     },
+
   },
 
   '&:hover': {
