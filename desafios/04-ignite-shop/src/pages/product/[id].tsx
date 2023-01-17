@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-// import { useShoppingCart } from 'use-shopping-cart';
+import { useShoppingCart } from 'use-shopping-cart';
 import Image from 'next/image'
 import { useState } from 'react'
 import Stripe from 'stripe'
@@ -24,12 +24,10 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
-  // const { addItem } = useShoppingCart()
+  const { addItem, clearCart  } = useShoppingCart()
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false)
   
-  console.log(' AQUI', )
-
   async function handleBuyProduct() {
     try {
       setIsCreatingCheckoutSession(true)
@@ -69,7 +67,8 @@ export default function Product({ product }: ProductProps) {
           <button
             disabled={isCreatingCheckoutSession}
             // onClick={handleBuyProduct}
-            // onClick={addItem(product)}
+            onClick={() => addItem(product)}
+            // onClick={() => clearCart(product)}
           >
             Colocar na sacola
           </button>
