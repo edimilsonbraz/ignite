@@ -3,14 +3,14 @@ import Image from 'next/image'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useKeenSlider } from 'keen-slider/react'
+import { MouseEvent, useContext } from 'react'
 import { CartContext, IProduct } from '../contexts/CartContext'
 import { Handbag } from 'phosphor-react'
 import { stripe } from '../lib/stripe'
 import Stripe from 'stripe'
 
-import { HomeContainer, Product } from '../styles/pages/home'
+import { ButtonDiv, HomeContainer, Product } from '../styles/pages/home'
 import 'keen-slider/keen-slider.min.css'
-import { MouseEvent, useContext } from 'react'
 
 interface HomeProps {
   products: IProduct[];
@@ -24,7 +24,7 @@ export default function Home({ products }: HomeProps) {
     }
   })
 
-  const {addToCart} = useContext(CartContext);
+  const {addToCart, checkIfItemExistsToCart} = useContext(CartContext);
 
   function handleAddToCart(e:MouseEvent<HTMLSpanElement>, product: IProduct) {
     e.preventDefault();
@@ -54,12 +54,15 @@ export default function Home({ products }: HomeProps) {
                     <span>{product.price}</span>
                   </div>
 
-                  <span onClick={(e) => handleAddToCart(e, product)}>
+                  <ButtonDiv
+                    onClick={(e) => handleAddToCart(e, product)} 
+                    disabled={checkIfItemExistsToCart(product.id)}
+                    >
                     <Handbag 
                     size={32} color='#fff' 
                     weight='bold'
-                  />
-                  </span>
+                    />
+                  </ButtonDiv>
                 </footer>
               </Product>
             </Link>
@@ -85,7 +88,9 @@ export const getStaticProps: GetStaticProps = async () => {
       price: new Intl.NumberFormat('pt-BR', {
         style: 'currency',
         currency: 'BRL'
-      }).format(price.unit_amount! / 100)
+      }).format(price.unit_amount! / 100),
+      numberPrice: price.unit_amount / 100,
+      defaultPriceId: price.id,
     }
   })
 

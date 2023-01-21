@@ -13,8 +13,6 @@ export const ModalContent = styled(Dialog.Content, {
   boxShadow: '-4px 0px 30px rgba(0, 0, 0, 0.8)',
   display: 'flex',
   flexDirection: 'column',
-  // transform: 'translatex(110%)',
-  transition: 'all 0.2s ease-in-out',
 })
 
 export const ModalTitle = styled('h2', {
@@ -80,6 +78,7 @@ export const CardProductDetails = styled('div', {
     fontSize: '1rem',
     fontWeight: 'bold',
     background: 'none',
+    cursor: 'pointer',
   }
 })
 

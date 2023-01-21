@@ -26,6 +26,7 @@ export function Header() {
               <Handbag size={20} weight="bold" color="#C4C4CC" alt="carrinho" />
             </Cart>
           </Dialog.Trigger>
+          
           <CartModal />
         </Dialog.Root>
       </HeaderContainer>
