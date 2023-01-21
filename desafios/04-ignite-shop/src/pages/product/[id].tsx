@@ -4,7 +4,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 import Stripe from 'stripe'
+
 import { stripe } from '../../lib/stripe'
+
 import {
   ImageContainer,
   ProductContainer,
@@ -23,6 +25,7 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
     useState(false)
   
@@ -64,7 +67,8 @@ export default function Product({ product }: ProductProps) {
 
           <button
             disabled={isCreatingCheckoutSession}
-            onClick={handleBuyProduct}
+            
+            // onClick={()=>addToCart(product)}
             
           >
             Colocar na sacola

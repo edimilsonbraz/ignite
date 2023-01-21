@@ -3,21 +3,17 @@ import Image from 'next/image'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useKeenSlider } from 'keen-slider/react'
-
-import { HomeContainer, Product } from '../styles/pages/home'
+import { CartContext, IProduct } from '../contexts/CartContext'
+import { Handbag } from 'phosphor-react'
 import { stripe } from '../lib/stripe'
 import Stripe from 'stripe'
 
+import { HomeContainer, Product } from '../styles/pages/home'
 import 'keen-slider/keen-slider.min.css'
-import { Handbag } from 'phosphor-react'
+import { MouseEvent, useContext } from 'react'
 
 interface HomeProps {
-  products: {
-    id: string
-    name: string
-    imageUrl: string
-    price: string
-  }[]
+  products: IProduct[];
 }
 
 export default function Home({ products }: HomeProps) {
@@ -27,6 +23,14 @@ export default function Home({ products }: HomeProps) {
       spacing: 48
     }
   })
+
+  const {addToCart} = useContext(CartContext);
+
+  function handleAddToCart(e:MouseEvent<HTMLSpanElement>, product: IProduct) {
+    e.preventDefault();
+
+    addToCart(product)
+  }
 
   return (
     <>
@@ -50,7 +54,12 @@ export default function Home({ products }: HomeProps) {
                     <span>{product.price}</span>
                   </div>
 
-                  <span><Handbag size={32} color='#fff' weight='bold'/></span>
+                  <span onClick={(e) => handleAddToCart(e, product)}>
+                    <Handbag 
+                    size={32} color='#fff' 
+                    weight='bold'
+                  />
+                  </span>
                 </footer>
               </Product>
             </Link>

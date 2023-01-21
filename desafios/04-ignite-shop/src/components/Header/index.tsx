@@ -6,8 +6,12 @@ import Link from 'next/link'
 import { CartModal } from '../CartModal'
 import logoImg from '../../assets/logo.svg'
 import { Cart, HeaderContainer } from './styles'
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/CartContext'
 
 export function Header() {
+  const {cartItems} = useContext(CartContext)
+  const quantityItems = cartItems.length
 
   return (
     <>
@@ -18,7 +22,7 @@ export function Header() {
         <Dialog.Root>
           <Dialog.Trigger asChild>
             <Cart>
-              <span>3</span>
+              <span>{quantityItems}</span>
               <Handbag size={20} weight="bold" color="#C4C4CC" alt="carrinho" />
             </Cart>
           </Dialog.Trigger>

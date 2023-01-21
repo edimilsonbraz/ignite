@@ -17,11 +17,12 @@ export const ModalContent = styled(Dialog.Content, {
   transition: 'all 0.2s ease-in-out',
 })
 
-export const ModalTitle = styled(Dialog.Title, {
+export const ModalTitle = styled('h2', {
   fontSize: '$1.25rem',
   fontWeight: 'bold',
   color: '$gray100',
   marginBottom: '3rem',
+  marginTop: '1rem',
 })
 
 export const CloseButton = styled(Dialog.Close, {
