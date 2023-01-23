@@ -1,7 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog'
+import axios from 'axios'
 import Image from 'next/image'
 import { X } from 'phosphor-react'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { CartContext } from '../../contexts/CartContext'
 
 import {
@@ -21,9 +22,29 @@ export function CartModal() {
 
   const formattedCartTotal = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
-    currency: 'BRL',
-  }).format(cartTotal);
- 
+    currency: 'BRL'
+  }).format(cartTotal)
+
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false)
+
+  async function handleCheckout() {
+    try {
+      setIsCreatingCheckoutSession(true)
+
+      const response = await axios.post("/api/checkout", {
+        products: cartItems
+      })
+
+      const { checkoutUrl } = response.data
+
+      window.location.href = checkoutUrl
+    } catch (error) {
+      setIsCreatingCheckoutSession(false)
+      alert('Error ao tentar finalizar a compra ' + error)
+    }
+  }
+
   return (
     <Dialog.Portal>
       <ModalContent>
@@ -36,9 +57,7 @@ export function CartModal() {
 
         <section>
           <>
-            {cartQuantity <= 0 &&
-              <p>Parece que seu carrinho está vazio!!!</p>
-            }
+            {cartQuantity <= 0 && <p>Parece que seu carrinho está vazio!!!</p>}
 
             {cartItems.map((cartItem) => (
               <CartProduct key={cartItem.id}>
@@ -53,7 +72,9 @@ export function CartModal() {
                 <CardProductDetails>
                   <p>{cartItem.name}</p>
                   <strong>{cartItem.price}</strong>
-                  <button onClick={() => removeCartItem(cartItem.id)}>Remover</button>
+                  <button onClick={() => removeCartItem(cartItem.id)}>
+                    Remover
+                  </button>
                 </CardProductDetails>
               </CartProduct>
             ))}
@@ -74,7 +95,12 @@ export function CartModal() {
             </div>
           </CardFooterDetails>
 
-          <button>Finalizar compra</button>
+          <button
+            onClick={handleCheckout}
+            disabled={isCreatingCheckoutSession || cartQuantity <= 0}
+          >
+            Finalizar compra
+          </button>
         </CartFooter>
       </ModalContent>
     </Dialog.Portal>

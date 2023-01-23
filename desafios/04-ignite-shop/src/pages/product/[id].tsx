@@ -1,9 +1,10 @@
-import axios from 'axios'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useContext } from 'react'
 import Stripe from 'stripe'
+import { CartContext, IProduct } from '../../contexts/CartContext'
 
 import { stripe } from '../../lib/stripe'
 
@@ -14,40 +15,20 @@ import {
 } from '../../styles/pages/product'
 
 interface ProductProps {
-  product: {
-    id: string
-    name: string
-    imageUrl: string
-    price: string
-    description: string
-    defaultPriceId: string
-  }
+  product: IProduct;
 }
 
 export default function Product({ product }: ProductProps) {
-  
-  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
-    useState(false)
-  
-  async function handleBuyProduct() {
-    try {
-      setIsCreatingCheckoutSession(true)
+  const {isFallback} = useRouter();
 
-      const response = await axios.post('/api/checkout', {
-        priceId: product.defaultPriceId
-      })
+  const {addToCart, checkIfItemExistsToCart} = useContext(CartContext);
 
-      const { checkoutUrl } = response.data
-
-      window.location.href = checkoutUrl
-    } catch (error) {
-      //Conectar com uma ferramenta de observabilidade (Datadog / Sentry)
-      setIsCreatingCheckoutSession(false)
-
-      alert('Falha ao redirecionar ao checkout!')
-    }
+  if(isFallback) {
+    return <p>Loading...</p>
   }
 
+  const itemAlreadyInCart = checkIfItemExistsToCart(product.id)
+  
   return (
     <>
       <Head>
@@ -66,12 +47,12 @@ export default function Product({ product }: ProductProps) {
           <p>{product.description}</p>
 
           <button
-            disabled={isCreatingCheckoutSession}
-            
-            // onClick={()=>addToCart(product)}
-            
+            disabled={itemAlreadyInCart}
+            onClick={() => addToCart(product)}
           >
-            Colocar na sacola
+            {itemAlreadyInCart  ?
+            "Produto já existe no carrinho" :
+            "Colocar no carrinho"} 
           </button>
         </ProductDetails>
       </ProductContainer>
@@ -80,16 +61,18 @@ export default function Product({ product }: ProductProps) {
 }
 
 export const getStaticPaths = async () => {
+  const paths = [{ params: { id: 'prod_N7CvzqR56JHbE8' } }];
+
   return {
-    paths: [{ params: { id: 'prod_N7CvzqR56JHbE8' } }],
-    fallback: true
+    paths,
+    fallback: true,
   }
 }
 
 export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
-  params
+  params,
 }) => {
-  const productId = params!.id  
+  const productId = params.id  
 
   //Buscando os dados do Product
   const product = await stripe.products.retrieve(productId, {
@@ -107,9 +90,10 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
         price: new Intl.NumberFormat('pt-BR', {
           style: 'currency',
           currency: 'BRL'
-        }).format(price.unit_amount! / 100),
+        }).format(price.unit_amount / 100),
+        numberPrice: price.unit_amount / 100,
         description: product.description,
-        defaultPriceId: price.id
+        defaultPriceId: price.id,
       }
     },
     revalidate: 60 * 60 * 1 // 1hour
