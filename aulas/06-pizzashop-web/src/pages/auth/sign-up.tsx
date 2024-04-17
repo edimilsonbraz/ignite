@@ -28,16 +28,17 @@ export function SignUp() {
 
   async function handleSignUp(data: SignupForm) {
     try {
-      console.log(data)
+      console.log(typeof data)
+      if (data.restaurantName !== '') {
+        await new Promise((resolve) => setTimeout(resolve, 2000))
 
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-
-      toast.success('Restaurante cadastrado com sucesso!.', {
-        action: {
-          label: 'Login',
-          onClick: () => navigate('/sign-in'),
-        },
-      })
+        toast.success('Restaurante cadastrado com sucesso!.', {
+          action: {
+            label: 'Login',
+            onClick: () => navigate('/sign-in'),
+          },
+        })
+      }
     } catch (error) {
       toast.error('Erro ao cadastrar restaurante.')
     }
