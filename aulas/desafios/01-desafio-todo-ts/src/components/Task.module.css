@@ -1,0 +1,77 @@
+/* ============== */
+.contentTask {
+  width: 100%;
+  padding: 1rem;
+  background: var(--gray-500);
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.contentTask .task {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  position: relative;
+}
+/* classe que risca a palavra */
+.scratched {
+  text-decoration: line-through;
+}
+
+.contentTask .check{
+  color: var(--purple-500);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  transition: all 1s;
+}
+
+.contentTask .check:hover {
+  color: var(--purple-300);
+}
+
+.contentTask .circle{  
+  color: var(--blue-300);
+  background: transparent;
+  border: 0;
+  line-height: 0px;
+
+  cursor: pointer;
+  z-index: 1;
+  transition: all 1s;
+}
+
+.contentTask .circle:hover {
+  color: var(--blue-500);
+  border-radius: 50px;
+}
+
+/* .contentTask .task p {
+  margin-left: 0.5rem;
+} */
+
+.contentTask .task input:checked ~ .check::after {
+  display: block;
+}
+
+.contentTask button.delete {
+  color: var(--gray-300);
+  background: transparent;
+  border: none;
+  line-height: 24px;
+  font-size: 24px;
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
+.contentTask button.delete:hover {
+  color: var(--red-500);
+  background: var(--gray-400);
+}
+
+.contentTask + .contentTask {
+  margin-top: 0.75rem;
+}
