@@ -25,7 +25,7 @@ import { Textarea } from './ui/textarea'
 
 const storeProfileSchema = z.object({
   name: z.string().min(1),
-  description: z.string(),
+  description: z.string().nullable(),
 })
 
 type StoreProfileSchema = z.infer<typeof storeProfileSchema>
@@ -51,6 +51,20 @@ export function StoreProfileDialog() {
     },
   })
 
+  const { mutateAsync: updateProfileFn } = useMutation({
+    mutationFn: updateProfile,
+    onMutate({ name, description }) {
+      const { cached } = updateManagedRestaurantCache({ name, description })
+
+      return { previousProfile: cached }
+    },
+    onError(_, __, context) {
+      if (context?.previousProfile) {
+        updateManagedRestaurantCache(context.previousProfile)
+      }
+    },
+  })
+
   function updateManagedRestaurantCache({
     name,
     description,
@@ -73,26 +87,13 @@ export function StoreProfileDialog() {
     return { cached }
   }
 
-  const { mutateAsync: updateProfileFn } = useMutation({
-    mutationFn: updateProfile,
-    onMutate({ name, description }) {
-      const { cached } = updateManagedRestaurantCache({ name, description })
-
-      return { previousProfile: cached }
-    },
-    onError(_, __, context) {
-      if (context?.previousProfile) {
-        updateManagedRestaurantCache(context.previousProfile)
-      }
-    },
-  })
-
   async function handleUpdateProfile(data: StoreProfileSchema) {
     try {
       await updateProfileFn({
         name: data.name,
         description: data.description,
       })
+
       toast.success('Perfil atualizado com sucesso!')
     } catch {
       toast.error('Falha ao atualizar o perfil, tente novamente!')
