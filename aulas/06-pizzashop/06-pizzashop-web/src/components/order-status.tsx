@@ -1,4 +1,4 @@
-type OrderStatus =
+export type OrderStatus =
   | 'pending'
   | 'canceled'
   | 'processing'
@@ -32,11 +32,13 @@ export function OrderStatus({ status }: OrdersStatusProps) {
         <span className="h-2 w-2 rounded-full bg-emerald-500" />
       )}
 
-      {status === 'delivering' && (
+      {['processing', 'delivering'].includes(status) && (
         <span className="h-2 w-2 rounded-full bg-amber-500" />
       )}
 
-      <span>{orderStatusMap[status]}</span>
+      <span className="font-medium text-muted-foreground">
+        {orderStatusMap[status]}
+      </span>
     </div>
   )
 }
