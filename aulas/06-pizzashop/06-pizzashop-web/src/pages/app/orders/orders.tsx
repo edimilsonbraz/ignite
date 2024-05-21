@@ -38,7 +38,7 @@ export function Orders() {
         status: status === 'all' ? null : status,
       }),
   })
-  // console.log(result)
+  console.log(result)
 
   function handlePaginate(pageIndex: number) {
     setSearchParams((state) => {

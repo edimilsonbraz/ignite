@@ -48,6 +48,8 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
         }),
       })
     })
+
+    console.log(order)
   }
 
   const { mutateAsync: cancelOrderFn, isPending: isCancelingOrder } =
