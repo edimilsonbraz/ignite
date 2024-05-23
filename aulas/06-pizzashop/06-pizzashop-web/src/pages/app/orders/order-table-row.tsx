@@ -1,4 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { ArrowRight, Search, X } from 'lucide-react'
 import { useState } from 'react'
 
@@ -13,6 +15,7 @@ import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { TableCell, TableRow } from '@/components/ui/table'
 
 import { OrderDetails } from './order-details'
+
 export interface OrderTableRowProps {
   order: {
     orderId: string
@@ -102,11 +105,10 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
         {order.orderId}
       </TableCell>
       <TableCell className="text-muted-foreground">
-        {order.createdAt}
-        {/* {formatDistanceToNow(order.createdAt, {
+        {formatDistanceToNow(order.createdAt, {
           locale: ptBR,
           addSuffix: true,
-        })} */}
+        })}
       </TableCell>
       <TableCell>
         <OrderStatus status={order.status} />
