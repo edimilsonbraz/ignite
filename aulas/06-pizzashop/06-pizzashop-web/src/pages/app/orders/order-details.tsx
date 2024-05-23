@@ -1,4 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
 import { getOrderDetails } from '@/api/get-order-details'
 import { OrderStatus } from '@/components/order-status'
@@ -17,6 +19,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+
+import { OrderDetailsSkeleton } from './order-details-skeleton'
 
 export interface OrderDetailsProps {
   orderId: string
@@ -37,7 +41,7 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
         <DialogDescription>Detalhes do pedido</DialogDescription>
       </DialogHeader>
 
-      {orderId && (
+      {order ? (
         <div className="space-y-6">
           <Table>
             <TableBody>
@@ -76,11 +80,10 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
                   Realizado há
                 </TableCell>
                 <TableCell className="flex justify-end">
-                  {order?.createdAt}
-                  {/* {formatDistanceToNow(order?.createdAt, {
+                  {formatDistanceToNow(order.createdAt, {
                     locale: ptBR,
                     addSuffix: true,
-                  })} */}
+                  })}
                 </TableCell>
               </TableRow>
             </TableBody>
@@ -136,6 +139,8 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
             </TableFooter>
           </Table>
         </div>
+      ) : (
+        <OrderDetailsSkeleton />
       )}
     </DialogContent>
   )
